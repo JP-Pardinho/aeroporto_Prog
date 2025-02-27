@@ -95,6 +95,8 @@ int main()
     return 0;
 }
 
+// Implementação das funções de Verificação 
+
 void normalizaString()
 {
 

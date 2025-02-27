@@ -3,10 +3,12 @@
 #include <string.h>
 #include <time.h>
 
+// Definir essas informações na função Menu!!
 #define MAX_AEROPORTOS 100
 #define MAX_ROTAS 100
 #define MAX_PASSAGEIROS 1000
 #define MAX_ASSENTOS 100
+// Definir essas informações na função Menu!!
 
 typedef struct
 {
@@ -51,6 +53,7 @@ typedef struct
     char status[10];
 } assento;
 
+// Definir essas informações na função Menu!!
 aeroporto aeroportos[MAX_AEROPORTOS];
 rota rotas[MAX_ROTAS];
 passageiro passageiros[MAX_PASSAGEIROS];
@@ -60,9 +63,18 @@ int num_aeroportos = 0;
 int num_rotas = 0;
 int num_passageiros = 0;
 int num_funcionarios = 0;
+// Definir essas informações na função Menu!!
+
+// Funções de Alocação
+
+aeroporto* alocaVetAeroportos();
+rota* alocaVetRotas();
+passageiro* alocaVetPassageiros();
+funcionario* alocaVetFuncionarios();
+assento* alocaVetAssentos();
 
 
-// Funções de verificações
+// Funções de Verificações
 void normalizaString();
 int verificaExistenciaAeroporto();
 int verificaExistenciaFuncionario();
@@ -93,6 +105,32 @@ int main()
 {
     menu_principal();
     return 0;
+}
+
+// Implementação das funções de Alocação Dinâmica
+aeroporto* alocaVetAeroportos(int tam)
+{
+
+}
+
+rota* alocaVetRotas(int tam)
+{
+
+}
+
+passageiro* alocaVetPassageiros(int tam)
+{
+
+}
+
+funcionario* alocaVetFuncionarios(int tam)
+{
+
+}
+
+assento* alocaVetAssentos(int tam)
+{
+
 }
 
 // Implementação das funções de Verificação 
@@ -251,6 +289,26 @@ int obterInteiro()
 // Implementação das funções de cadastro e impressão
 void menu_principal() {
     int opcao;
+    // Alocação Aeroportos
+    aeroporto* AEROPORTOS = NULL;
+    int tamAeroportos = 10;
+    
+    // Alocação Rotas
+    rota* ROTAS = NULL;
+    int tamRotas = 10;
+
+    // Alocação Passageiros
+    passageiro* PASSAGEIROS = NULL;
+    int tamPassageiros = 10;
+
+    // Alocação Funcionarios
+    funcionario* FUNCIONARIOS = NULL;
+    int tamFuncionarios = 10;
+
+    // Alocação Assentos
+    assento* ASSENTOS = NULL;
+    int tamAssuntos = 10;
+
     do {
         printf("\n=== MENU PRINCIPAL ===\n");
         printf("[1] Configurações\n");
@@ -360,6 +418,7 @@ void cadastrar_aeroporto() {
 }
 
 void cadastrar_rota() {
+
     if (num_rotas >= MAX_ROTAS) {
         printf("Limite de rotas atingido!\n");
         return;

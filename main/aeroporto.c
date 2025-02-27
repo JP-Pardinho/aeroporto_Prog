@@ -3,6 +3,11 @@
 #include <string.h>
 #include <time.h>
 
+#define MAX_AEROPORTOS 100
+#define MAX_ROTAS 100
+#define MAX_PASSAGEIROS 1000
+#define MAX_ASSENTOS 100
+
 typedef struct
 {
     char codigo[10];
@@ -46,6 +51,27 @@ typedef struct
     char status[10];
 } assento;
 
+aeroporto aeroportos[MAX_AEROPORTOS];
+rota rotas[MAX_ROTAS];
+passageiro passageiros[MAX_PASSAGEIROS];
+funcionario funcionarios[MAX_PASSAGEIROS];
+assento assentos[MAX_ASSENTOS];
+int num_aeroportos = 0;
+int num_rotas = 0;
+int num_passageiros = 0;
+int num_funcionarios = 0;
+
+
+// Funções de verificações
+void normalizaString();
+int verificaExistenciaAeroporto();
+int verificaExistenciaFuncionario();
+int verificaExistenciaCliente();
+int verificaCodigoAeroporto();
+int letras();
+int verificaNomePassageiro();
+int obterInteiro();
+
 
 // Funções de Cadastro
 void menu_principal();
@@ -61,16 +87,6 @@ void escolher_assento();
 void realizar_pagamento();
 
 
-// Funções de verificações
-void normalizaString();
-int verificaExistenciaAeroporto();
-int verificaExistenciaFuncionario();
-int verificaExistenciaCliente();
-int verificaCodigoAeroporto();
-int letras();
-int verificaNomePassageiro();
-int obterInteiro();
-
 // Função Principal 
 
 int main() 
@@ -79,7 +95,48 @@ int main()
     return 0;
 }
 
-// Implementação das funções
+void normalizaString()
+{
+
+}
+
+int verificaExistenciaAeroporto()
+{
+
+}
+
+int verificaExistenciaFuncionario()
+{
+
+}
+
+int verificaExistenciaCliente()
+{
+
+}
+
+int verificaCodigoAeroporto()
+{
+
+}
+
+int letras()
+{
+
+}
+
+int verificaNomePassageiro()
+{
+
+}
+
+int obterInteiro()
+{
+
+}
+
+
+// Implementação das funções de cadastro e impressão
 void menu_principal() {
     int opcao;
     do {
@@ -279,6 +336,7 @@ void realizar_pagamento() {
     printf("\n=== REALIZAR PAGAMENTO ===\n");
     // Implementar lógica para realizar pagamento
 }
+
 
 void gerar_e_ticket() {
     printf("\n=== GERAR E-TICKET ===\n");

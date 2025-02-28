@@ -1,0 +1,14 @@
+Para ser possível realizar pagamentos, etapa 4, é necessário previamente ter um valor por trecho
+do voo em venda. A determinação dos valores dos trechos deverá obedecer ao algoritmo de
+preços de trechos apresentado (ANEXO). O pagamento deverá ser do valor total obtido pela
+soma dos trechos selecionados. Deverá oferecer três formas de pagamento, dinheiro, cartão de
+crédito ou cartão de débito. Caso dinheiro o funcionário da companhia deverá confirmar o
+pagamento informando o número de sua matricula em campo específico e selecionar
+pagamento realizado em dinheiro. O sistema somente deverá aceitar esta opção com a
+matrícula do funcionário. É nessa etapa que os dados do passageiro devem ser informados (ou
+recuperados via busca de passageiros fidelizados cadastrados previamente), conforme segue:
+
+
+Dados dos passageiros: código do passageiro nome do passageiro, RG, CPF, data de nascimento,
+telefone, e-mail, contato emergência (opcional) e bagagem extra (acima de 10Kg - SIM/NÃO).
+(Dados ok!)

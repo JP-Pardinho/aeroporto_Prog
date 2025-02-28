@@ -1,0 +1,5 @@
+Na etapa 2, a cada venda a ser realizada, por rota e/ou trecho, deverá contabilizar o número de
+passageiros por horário (considera-se os horários disponíveis previamente informados), caso
+atinja o número máximo de poltronas por voo o horário deverá ficar indisponível e não deve ser
+apresentado como opção de voo em uma nova venda. Também a cada venda deve ser gravado
+(por exemplo, no arquivo vendas.dat) o assento escolhido do voo e coloca-lo como indisponível.

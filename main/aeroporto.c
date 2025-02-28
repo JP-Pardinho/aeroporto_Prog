@@ -3,12 +3,6 @@
 #include <string.h>
 #include <time.h>
 
-// Definir essas informações na função Menu!!
-#define MAX_AEROPORTOS 100
-#define MAX_ROTAS 100
-#define MAX_PASSAGEIROS 1000
-#define MAX_ASSENTOS 100
-// Definir essas informações na função Menu!!
 
 typedef struct
 {
@@ -36,7 +30,7 @@ typedef struct
     char data_nascimento[11];
     char telefone[15];
     char email[50];
-    char contato_emergencia[50];
+    char contato_emergencia[50]; // Opcional
     char bagagem_extra[3]; // SIM ou NÃO
 } passageiro;
 
@@ -53,18 +47,6 @@ typedef struct
     char status[10];
 } assento;
 
-// Definir essas informações na função Menu!!
-aeroporto aeroportos[MAX_AEROPORTOS];
-rota rotas[MAX_ROTAS];
-passageiro passageiros[MAX_PASSAGEIROS];
-funcionario funcionarios[MAX_PASSAGEIROS];
-assento assentos[MAX_ASSENTOS];
-int num_aeroportos = 0;
-int num_rotas = 0;
-int num_passageiros = 0;
-int num_funcionarios = 0;
-// Definir essas informações na função Menu!!
-
 // Funções de Alocação
 
 aeroporto* alocaVetAeroportos();
@@ -72,7 +54,6 @@ rota* alocaVetRotas();
 passageiro* alocaVetPassageiros();
 funcionario* alocaVetFuncionarios();
 assento* alocaVetAssentos();
-
 
 // Funções de Verificações
 void normalizaString();
@@ -83,7 +64,6 @@ int verificaCodigoAeroporto();
 int letras();
 int verificaNomePassageiro();
 int obterInteiro();
-
 
 // Funções de Cadastro
 void menu_principal();
@@ -107,30 +87,59 @@ int main()
     return 0;
 }
 
+
 // Implementação das funções de Alocação Dinâmica
 aeroporto* alocaVetAeroportos(int tam)
 {
-
+    /*Função que realiza a alocação de memória para o ponteiro dos aeroportos.
+    Será exibida uma mensagem de erro, caso a alocação seja mal sucedida e retorna 
+    o ponteiro *vetAeroportos*/
+    aeroporto *vetAeroportos = (aeroporto*)malloc(tam* sizeof(aeroporto));
+    if (vetAeroportos == NULL){
+        printf("Erro: alocação mal sucedida!");
+        exit(1);
+    }
+    return vetAeroportos;
 }
 
 rota* alocaVetRotas(int tam)
 {
-
+    rota *vetRotas = (rota*)malloc(tam* sizeof(rota));
+    if (vetRotas == NULL){
+        printf("Erro: alocação mal sucedida!");
+        exit(1);
+    }
+    return vetRotas;
 }
 
 passageiro* alocaVetPassageiros(int tam)
 {
-
+    rota *vetRotas = (rota*)malloc(tam* sizeof(rota));
+    if (vetRotas == NULL){
+        printf("Erro: alocação mal sucedida!");
+        exit(1);
+    }
+    return vetRotas;
 }
 
 funcionario* alocaVetFuncionarios(int tam)
 {
-
+    funcionario *vetFuncionarios = (funcionario*)malloc(tam* sizeof(funcionario));
+    if (vetFuncionarios == NULL){
+        printf("Erro: alocação mal sucedida!");
+        exit(1);
+    }
+    return vetFuncionarios;
 }
 
 assento* alocaVetAssentos(int tam)
 {
-
+    assento **MatrizAssentos = (assento**)malloc(tam* sizeof(assento));
+    if (MatrizAssentos == NULL){
+        printf("Erro: alocação mal sucedida!");
+        exit(1);
+    }
+    return MatrizAssentos;
 }
 
 // Implementação das funções de Verificação 
@@ -286,28 +295,38 @@ int obterInteiro()
 }
 
 
+
+
+
 // Implementação das funções de cadastro e impressão
 void menu_principal() {
     int opcao;
-    // Alocação Aeroportos
+
+    // Alocação Aeroportos adicionar os aeroportos do arquivo voos.dat
+
     aeroporto* AEROPORTOS = NULL;
     int tamAeroportos = 10;
-    
-    // Alocação Rotas
+    int num_aeroportos = 0;
+
+    // Alocação Rotas adicionar as rotas do arquivo voos.dat
     rota* ROTAS = NULL;
     int tamRotas = 10;
+    int num_rotas = 0;
 
     // Alocação Passageiros
     passageiro* PASSAGEIROS = NULL;
     int tamPassageiros = 10;
+    int num_passageiros = 0;
 
     // Alocação Funcionarios
     funcionario* FUNCIONARIOS = NULL;
     int tamFuncionarios = 10;
+    int num_funcionarios = 0;
 
-    // Alocação Assentos
+    // Alocação Assentos que vai vir de um arq Docs.
     assento* ASSENTOS = NULL;
-    int tamAssuntos = 10;
+    int tamAssentos = 10;
+    int num_assentos = 0;
 
     do {
         printf("\n=== MENU PRINCIPAL ===\n");

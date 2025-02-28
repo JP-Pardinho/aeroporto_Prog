@@ -1,0 +1,15 @@
+A escolha de assentos disponíveis, deve ser realizada com a consulta no arquivo de
+poltronas disponíveis para cada voo(rota ou trecho1) e atualizado a cada venda realizada.
+
+
+Isso irá assegurar a não duplicidade de venda do mesmo assento para mais de um passageiro.
+
+[23A] [21A] [19A] [17A] [15A] [13A]     [3B] [1A]
+[23B] [21B] [19B] [17B] [15B] [13B] ... [3B] [1B]
+[22C] [21C] [19C] [17C] [15C] [13C] .   [3C] [1C]
+
+[24A] [22A] [20A] [18A] [16A] [14A]     [4A] [2A]
+[24B] [22B] [20B] [18B] [16B] [14B] ... [4B] [2B]
+[24C] [22C] [20C] [18C] [16C] [14C]     [4C] [2C]
+
+Ou seja cada vez que o códio iniciar todas as 8 rotas iriam ter todos os assentos disponiveis

@@ -1,0 +1,20 @@
+Por fim, na etapa 5 o e-ticket deve ser gerado em formato TXT/ PDF (em caso de PDF pode utilizar
+os recursos de Haru Free PDF Library) para impressão contendo todas as informações do voo
+como data, horário, origem, destino, nome do passageiro, número do e-ticket, código do voo e
+portão de embarque. Todas essas informações devem permanecer salvas em arquivo específico
+para que seja possível recuperar a venda realizada. O número do e-ticket deve ser gerando
+automaticamente pelo sistema (USAR A FUNÇÃO RAND), combinando informações do
+passageiro com o voo escolhido, de modo a garantir um número único para cada passageiro e
+qualquer voo em qualquer data.
+Enfatiza-se também que para o desenvolvimento do programa necessariamente deve-se, a
+medida do possível (diante as limitações gráficas do C) utilizar interfaces intuitivas, por exemplo,
+com a disposição em filas (duas filas com N blocos de três poltronas) apresentando o número
+da das poltronas livres [em azul] e ocupadas [em vermelho] em cada voo (rota) ou trecho, por
+exemplo:
+[23A] [21A] [19A] [17A] [15A] [13A]     [3B] [1A]
+[23B] [21B] [19B] [17B] [15B] [13B] ... [3B] [1B]
+[22C] [21C] [19C] [17C] [15C] [13C] .   [3C] [1C]
+
+[24A] [22A] [20A] [18A] [16A] [14A]     [4A] [2A]
+[24B] [22B] [20B] [18B] [16B] [14B] ... [4B] [2B]
+[24C] [22C] [20C] [18C] [16C] [14C]     [4C] [2C]

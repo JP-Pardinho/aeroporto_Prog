@@ -1,0 +1,33 @@
+
+
+Na etapa 1 
+
+Todos os aeroportos e rotas possíveis devem ser adicionados previamente em um
+VETOR de struct voos (e gravar em um arquivo voos.dat).
+
+A opção de cadastrar aeroportos e suas rotas dever ser disponibilizada na interface de vendas. 
+
+Dados de aeroportos: código do aeroporto, nome do aeroporto, cidade e estado.
+
+Dados de rotas: código da rota, nome da rota, horários (hora e minutos - para voos diários e,
+dias da semana e horários (horas, minutos) para voos não regulares),
+número de poltronas a ser disponibilizada e distancia em milhas (EX: 800,00).
+
+
+Distâncias entre aeroportos em milhas aéreas (DIST):
+
+São Paulo (CGH) – Rio de Janeiro (SDU): 222 milhas
+
+São Paulo (CGH) – Belo Horizonte (CNF): 305 milhas
+
+São Paulo (CGH) – Vitória (VIX): 462 milhas
+
+Rio de Janeiro (SDU) – Vitória (VIX): 257 milhas
+
+São Paulo (CGH) – Fortaleza (FOR): 1474 milhas
+
+São Paulo (CGH) – Brasília (BSB): 541 milhas
+
+Porto Alegre (POA) - São Paulo (CGH): 531 milhas
+
+Vitória (VIX) - Recife (REC): 924 milhas

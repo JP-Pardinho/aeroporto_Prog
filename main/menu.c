@@ -595,6 +595,11 @@ float calcular_preco(Rota rota, int dias_antecedencia, char tipo_dia, float perc
 
 void gerar_eticket(Venda venda, Passageiro passageiro, Rota rota)
 {
+    printf("Nome do passageiro: ");
+    printf("Forma de pagamento: \n");
+    printf("(1) Dinheiro\n");
+    printf("(2) Cartão\n");
+    scanf("%f");
     // Gerar número único para o e-ticket
     srand(time(NULL));
     int numero_eticket = rand() % 900000 + 100000; // Número de 6 dígitos

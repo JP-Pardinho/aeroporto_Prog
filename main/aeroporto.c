@@ -18,14 +18,6 @@ int main()
     int tam_vendas = 10;
 
 
-    // COLOCAR ESSE CONTADOR DENTRO DE CADA FUNÇÃO PARA REALOCAR
-    int qnt_aeroportos = 0;
-    int qnt_rotas = 0;
-    int qnt_passageiros = 0;
-    int qnt_funcionarios = 0;
-    int qnt_vendas = 0;
-
-
     // ALOCAÇÃO APARENTEMENTE ESTÁ FUNCIONANDO
     aeroportos = alocaVetAeroportos(tam_aeroportos);
     rotas = alocaVetRotas(tam_rotas);
@@ -35,11 +27,11 @@ int main()
     
 
     // FUNÇÃO carregar_arquivo("aeroportos.dat") e carregar_arquivo("rotas.dat") não estão funcionando
-    int total_aeroportos = carregar_arquivo("aeroportos.dat", aeroportos, sizeof(Aeroporto), &qnt_aeroportos);
-    int total_rotas = carregar_arquivo("rotas.dat", rotas, sizeof(Rota), &qnt_rotas);
-    int total_passageiros = carregar_arquivo("passageiros.dat", passageiros, sizeof(Passageiro), &qnt_passageiros);
-    int total_funcionarios = carregar_arquivo("funcionarios.dat", funcionarios, sizeof(Funcionario), &qnt_funcionarios);
-    int total_vendas = carregar_arquivo("vendas.dat", vendas, sizeof(Venda), &qnt_vendas);
+    int total_aeroportos = carregar_arquivo("aeroportos.dat", aeroportos, sizeof(Aeroporto), &tam_aeroportos);
+    int total_rotas = carregar_arquivo("rotas.dat", rotas, sizeof(Rota), &tam_rotas);
+    int total_passageiros = carregar_arquivo("passageiros.dat", passageiros, sizeof(Passageiro), &tam_passageiros);
+    int total_funcionarios = carregar_arquivo("funcionarios.dat", funcionarios, sizeof(Funcionario), &tam_funcionarios);
+    int total_vendas = carregar_arquivo("vendas.dat", vendas, sizeof(Venda), &tam_vendas);
 
     int opcao;
     do

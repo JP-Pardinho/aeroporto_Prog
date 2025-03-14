@@ -1,4 +1,3 @@
-
 #include "variaveis.h"
 
 // Completando o arquivo passagens.c com as funções necessárias

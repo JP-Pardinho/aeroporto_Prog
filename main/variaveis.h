@@ -96,7 +96,6 @@ void salvar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemen
 int carregar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemento, int *tamanho_maximo);
 float calcular_preco(Rota rota, int dias_antecedencia, char tipo_dia, float percentual_ocupacao, int dias_retorno);
 void gerar_eticket(Venda venda, Passageiro passageiro, Rota rota);
-
 void cadastrar_passageiro(Passageiro *passageiros, int *total);
 void pesquisar_alterar_passageiro(Passageiro *passageiros, int total);
 void cadastrar_funcionario(Funcionario *funcionarios, int *total);

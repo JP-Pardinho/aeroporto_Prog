@@ -73,19 +73,6 @@ Passageiro* alocaVetPassageiros(int tam);
 Funcionario* alocaVetFuncionarios(int tam);
 Venda* alocaVetVenda(int tam);
 
-// Funções de Verificações
-/*
-void normalizaString();
-int verificaExistenciaAeroporto();
-int verificaExistenciaFuncionario();
-int verificaExistenciaCliente();
-int verificaCodigoAeroporto();
-int letras();
-int verificaNomePassageiro();
-int obterInteiro();
-*/
-
-
 // Protótipos de funções
 void exibir_menu_principal();
 void menu_configuracoes(Aeroporto *aeroportos, int *total_aeroportos, Rota *rotas, int *total_rotas, Passageiro *passageiros, int *total_passageiros, Funcionario *funcionarios, int *total_funcionarios);

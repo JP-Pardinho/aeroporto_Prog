@@ -2,7 +2,25 @@ E-TICKET 264411
 Passageiro: 
 CPF: "
 Voo: OAS para OPS
-Horário: �
+Horário: �
+Assento: 
+Valor: R$ 0.00
+---------------------------------------------------
+
+E-TICKET 868987
+Passageiro: D
+CPF: D
+Voo: SAO para MATE 10:00
+Horário: 10:00
+Assento: 
+Valor: R$ 0.00
+---------------------------------------------------
+
+E-TICKET 850004
+Passageiro: 
+CPF: �
+Voo: sapipinh10:00 para pinh10:00
+Horário: 10:00
 Assento: 
 Valor: R$ 0.00
 ---------------------------------------------------

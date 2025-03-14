@@ -1,29 +1,55 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 #include "variaveis.h"
-
 
 // Função Principal 
 
 int main() 
 {
-    Aeroporto aeroportos[50];
-    Rota rotas[100];
-    Passageiro passageiros[200];
-    Funcionario funcionarios[20];
-    Venda vendas[1000];
+    // ALTERANDO PARA PONTEIRO PRECISAMOS ALTERAR TODAS AS FUNÇÕES
+    Aeroporto *aeroportos = NULL;
+    Rota *rotas = NULL;
+    Passageiro *passageiros = NULL;
+    Funcionario *funcionarios = NULL;
+    Venda *vendas = NULL;
 
-    int total_aeroportos = carregar_arquivo("voos.dat", aeroportos, sizeof(Aeroporto));
-    int total_rotas = carregar_arquivo("voos.dat", rotas, sizeof(Rota));
-    int total_passageiros = carregar_arquivo("passageiros.dat", passageiros, sizeof(Passageiro));
-    int total_funcionarios = carregar_arquivo("funcionarios.dat", funcionarios, sizeof(Funcionario));
-    int total_vendas = carregar_arquivo("vendas.dat", vendas, sizeof(Venda));
+    int tam_aeroportos = 10;
+    int tam_rotas = 10;
+    int tam_passageiros = 10;
+    int tam_funcionarios = 10;
+    int tam_vendas = 10;
+
+
+    // COLOCAR ESSE CONTADOR DENTRO DE CADA FUNÇÃO PARA REALOCAR
+    int qnt_aeroportos = 0;
+    int qnt_rotas = 0;
+    int qnt_passageiros = 0;
+    int qnt_funcionarios = 0;
+    int qnt_vendas = 0;
+
+
+    // ALOCAÇÃO APARENTEMENTE ESTÁ FUNCIONANDO
+    aeroportos = alocaVetAeroportos(tam_aeroportos);
+    rotas = alocaVetRotas(tam_rotas);
+    passageiros = alocaVetPassageiros(tam_passageiros);
+    funcionarios = alocaVetFuncionarios(tam_funcionarios);
+    vendas = alocaVetVenda(tam_vendas);
+    
+
+    // FUNÇÃO carregar_arquivo("aeroportos.dat") e carregar_arquivo("rotas.dat") não estão funcionando
+    int total_aeroportos = carregar_arquivo("aeroportos.dat", aeroportos, sizeof(Aeroporto), &qnt_aeroportos);
+    int total_rotas = carregar_arquivo("rotas.dat", rotas, sizeof(Rota), &qnt_rotas);
+    int total_passageiros = carregar_arquivo("passageiros.dat", passageiros, sizeof(Passageiro), &qnt_passageiros);
+    int total_funcionarios = carregar_arquivo("funcionarios.dat", funcionarios, sizeof(Funcionario), &qnt_funcionarios);
+    int total_vendas = carregar_arquivo("vendas.dat", vendas, sizeof(Venda), &qnt_vendas);
 
     int opcao;
     do
-    {
+    {   
+        printf("Aeroportos: %d\n", total_aeroportos);
+        printf("rotas: %d\n", total_rotas);
+        printf("passageiros: %d\n", total_passageiros);
+        printf("funcionarios: %d\n", total_funcionarios);
+        printf("vendas: %d\n", total_vendas);
+        
         exibir_menu_principal();
         scanf("%d", &opcao);
         switch (opcao)
@@ -41,6 +67,12 @@ int main()
             printf("Opcao invalida!\n");
         }
     } while (opcao != 3);
+
+    free(aeroportos);
+    free(rotas);
+    free(passageiros);
+    free(funcionarios);
+    free(vendas);
 
     return 0;
 }

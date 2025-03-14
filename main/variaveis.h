@@ -1,11 +1,10 @@
 #ifndef VARIAVEIS_H
 #define VARIAVEIS_H
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include <ctype.h>
+#include <time.h>
 
 #define FILAS 10
 #define COLUNAS 6
@@ -75,6 +74,7 @@ Funcionario* alocaVetFuncionarios(int tam);
 Venda* alocaVetVenda(int tam);
 
 // Funções de Verificações
+/*
 void normalizaString();
 int verificaExistenciaAeroporto();
 int verificaExistenciaFuncionario();
@@ -83,6 +83,7 @@ int verificaCodigoAeroporto();
 int letras();
 int verificaNomePassageiro();
 int obterInteiro();
+*/
 
 
 // Protótipos de funções
@@ -92,11 +93,14 @@ void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int tota
 void cadastrar_aeroporto(Aeroporto *aeroportos, int *total);
 void cadastrar_rota(Rota *rotas, int *total);
 void salvar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemento, int total);
-int carregar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemento);
+int carregar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemento, int *tamanho_maximo);
 float calcular_preco(Rota rota, int dias_antecedencia, char tipo_dia, float percentual_ocupacao, int dias_retorno);
 void gerar_eticket(Venda venda, Passageiro passageiro, Rota rota);
 
-
-
+void cadastrar_passageiro(Passageiro *passageiros, int *total);
+void pesquisar_alterar_passageiro(Passageiro *passageiros, int total);
+void cadastrar_funcionario(Funcionario *funcionarios, int *total);
+void pesquisar_alterar_funcionario(Funcionario *funcionarios, int total);
+void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas);
 
 #endif

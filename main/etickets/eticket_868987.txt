@@ -1,0 +1,24 @@
+===================================================
+                     E-TICKET                      
+===================================================
+
+Número do E-ticket: 868987
+Código da venda: 1668498698
+
+PASSAGEIRO
+Nome: D
+CPF: D
+Bagagem extra: Não
+
+VOO
+Origem: SAO
+Destino: MATE10:00
+Horário: 10:00
+Assento: 
+
+Valor total: R$ 0.00
+Forma de pagamento: 
+
+===================================================
+    Apresente este e-ticket no portão de embarque  
+===================================================

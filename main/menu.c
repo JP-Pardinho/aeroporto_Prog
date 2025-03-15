@@ -59,7 +59,7 @@ Venda* alocaVetVenda(int tam){
 
 void exibir_menu_principal()
 {
-    system("cls");
+    system("clear");
     printf("=== SISTEMA DE VENDAS DE PASSAGENS AEREAS ===\n\n");
     printf("[1] Configuracoes\n");
     printf("[2] Vendas\n");
@@ -70,7 +70,7 @@ void exibir_menu_principal()
 void menu_configuracoes(Aeroporto *aeroportos, int *total_aeroportos, Rota *rotas, int *total_rotas, Passageiro *passageiros, int *total_passageiros, Funcionario *funcionarios, int *total_funcionarios) {
     int opcao;
     do {
-        system("cls");
+        system("clear");
         printf("=== MENU DE CONFIGURACOES ===\n\n");
         printf("[4] Cadastrar aeroportos\n");
         printf("[5] Cadastrar voos/trechos\n");
@@ -116,7 +116,7 @@ void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int tota
 
     do
     {
-        system("cls");
+        system("clear");
         printf("=== MENU DE VENDAS ===\n\n");
         printf("[11] Selecionar origem e destino [Etapa 1 de 5]\n");
         printf("[12] Voltar\n");
@@ -478,8 +478,7 @@ int carregar_arquivo(const char *nome_arquivo, void **dados, size_t tamanho_elem
         }
         fclose(arquivo);
     } else {
-        printf("Erro: Arquivo %s não encontrado ou não pode ser aberto.\n", nome_arquivo);
-        return -1;
+        return 0;
     }
     return total;
 }

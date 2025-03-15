@@ -80,7 +80,7 @@ void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int tota
 void cadastrar_aeroporto(Aeroporto *aeroportos, int *total);
 void cadastrar_rota(Rota *rotas, int *total);
 void salvar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemento, int total);
-int carregar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemento, int *tamanho_maximo);
+int carregar_arquivo(const char *nome_arquivo, void **dados, size_t tamanho_elemento, int *tamanho_maximo);
 float calcular_preco(Rota rota, int dias_antecedencia, char tipo_dia, float percentual_ocupacao, int dias_retorno);
 void gerar_eticket(Venda venda, Passageiro passageiro, Rota rota);
 void cadastrar_passageiro(Passageiro *passageiros, int *total);

@@ -27,11 +27,15 @@ int main()
     
 
     // FUNÇÃO carregar_arquivo("aeroportos.dat") e carregar_arquivo("rotas.dat") não estão funcionando
-    int total_aeroportos = carregar_arquivo("aeroportos.dat", aeroportos, sizeof(Aeroporto), &tam_aeroportos);
-    int total_rotas = carregar_arquivo("rotas.dat", rotas, sizeof(Rota), &tam_rotas);
-    int total_passageiros = carregar_arquivo("passageiros.dat", passageiros, sizeof(Passageiro), &tam_passageiros);
-    int total_funcionarios = carregar_arquivo("funcionarios.dat", funcionarios, sizeof(Funcionario), &tam_funcionarios);
-    int total_vendas = carregar_arquivo("vendas.dat", vendas, sizeof(Venda), &tam_vendas);
+    int total_aeroportos = carregar_arquivo("aeroportos.dat", (void **)&aeroportos, sizeof(Aeroporto), &tam_aeroportos);
+    int total_rotas = carregar_arquivo("rotas.dat", (void **)&rotas, sizeof(Rota), &tam_rotas);
+    int total_passageiros = carregar_arquivo("passageiros.dat", (void **)&passageiros, sizeof(Passageiro), &tam_passageiros);
+    int total_funcionarios = carregar_arquivo("funcionarios.dat", (void **)&funcionarios, sizeof(Funcionario), &tam_funcionarios);
+    int total_vendas = carregar_arquivo("vendas.dat", (void**)&vendas, sizeof(Venda), &tam_vendas);
+
+    if(total_vendas == 0){
+        total_vendas = 0;
+    }
 
     int opcao;
     do

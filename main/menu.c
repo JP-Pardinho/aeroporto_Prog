@@ -459,17 +459,17 @@ void salvar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemen
     }
 }
 
-int carregar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemento, int *tamanho_maximo)
+int carregar_arquivo(const char *nome_arquivo, void **dados, size_t tamanho_elemento, int *tamanho_maximo)
 {
     FILE *arquivo = fopen(nome_arquivo, "rb");
     int total = 0;
     if (arquivo) {
-        while (fread((char *)dados + total * tamanho_elemento, tamanho_elemento, 1, arquivo)) {
+        while (fread((char *)(*dados) + total * tamanho_elemento, tamanho_elemento, 1, arquivo)) {
             total++;
             if (total >= *tamanho_maximo) {
                 *tamanho_maximo *= 2;
-                dados = realloc(dados, *tamanho_maximo * tamanho_elemento);
-                if (!dados) {
+                dados = realloc(*dados, *tamanho_maximo * tamanho_elemento);
+                if (!*dados) {
                     printf("Erro: Falha ao realocar memória!\n");
                     fclose(arquivo);
                     return -1;
@@ -603,6 +603,7 @@ float calcular_preco(Rota rota, int dias_antecedencia, char tipo_dia, float perc
 
 void gerar_eticket(Venda venda, Passageiro passageiro, Rota rota)
 {
+    (void)rota;
     // Gerar número único para o e-ticket
     srand(time(NULL));
     int numero_eticket = rand() % 900000 + 100000; // Número de 6 dígitos

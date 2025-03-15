@@ -29,6 +29,8 @@ typedef struct
     int poltronas_disponiveis;
     float distancia;
     char dias_semana[7];
+    char assentos[10][6];
+    char conexao[4];
 } Rota;
 
 typedef struct
@@ -88,5 +90,5 @@ void pesquisar_alterar_passageiro(Passageiro *passageiros, int total);
 void cadastrar_funcionario(Funcionario *funcionarios, int *total);
 void pesquisar_alterar_funcionario(Funcionario *funcionarios, int total);
 void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas);
-
+void escolher_assento(Rota *rota);
 #endif

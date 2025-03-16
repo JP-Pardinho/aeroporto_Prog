@@ -1,0 +1,24 @@
+===================================================
+                     E-TICKET                      
+===================================================
+
+N√∫mero do E-ticket: 537550
+C√≥digo da venda: 1668498698
+
+PASSAGEIRO
+Nome: Joao Pedro Pardinho
+CPF: 12312312312
+Bagagem extra: N√£o
+
+VOO
+Origem: sam
+Destino: pin
+Hor√°rio: 10:10
+Assento: ˘C‡
+
+Valor total: R$ 499.43
+Forma de pagamento: ‡
+
+===================================================
+    Apresente este e-ticket no port√£o de embarque  
+===================================================

@@ -10,34 +10,33 @@ int main()
     Passageiro *passageiros = NULL;
     Funcionario *funcionarios = NULL;
     Venda *vendas = NULL;
-
-    int tam_aeroportos = 10;
-    int tam_rotas = 10;
-    int tam_passageiros = 10;
-    int tam_funcionarios = 10;
-    int tam_vendas = 10;
+    
+    int opcao;
+    int tam_aeroportos = 30;
+    int tam_rotas = 30;
+    int tam_passageiros = 30;
+    int tam_funcionarios = 30;
+    int tam_vendas = 30;
 
 
     // ALOCAÇÃO APARENTEMENTE ESTÁ FUNCIONANDO
+    
     aeroportos = alocaVetAeroportos(tam_aeroportos);
     rotas = alocaVetRotas(tam_rotas);
     passageiros = alocaVetPassageiros(tam_passageiros);
     funcionarios = alocaVetFuncionarios(tam_funcionarios);
     vendas = alocaVetVenda(tam_vendas);
     
-
-    // FUNÇÃO carregar_arquivo("aeroportos.dat") e carregar_arquivo("rotas.dat") não estão funcionando
     int total_aeroportos = carregar_arquivo("aeroportos.dat", (void **)&aeroportos, sizeof(Aeroporto), &tam_aeroportos);
     int total_rotas = carregar_arquivo("rotas.dat", (void **)&rotas, sizeof(Rota), &tam_rotas);
     int total_passageiros = carregar_arquivo("passageiros.dat", (void **)&passageiros, sizeof(Passageiro), &tam_passageiros);
     int total_funcionarios = carregar_arquivo("funcionarios.dat", (void **)&funcionarios, sizeof(Funcionario), &tam_funcionarios);
     int total_vendas = carregar_arquivo("vendas.dat", (void**)&vendas, sizeof(Venda), &tam_vendas);
-
+    
     if(total_vendas == 0){
         total_vendas = 0;
     }
 
-    int opcao;
     do
     {   
         printf("Aeroportos: %d\n", total_aeroportos);

@@ -25,3 +25,30 @@ Assento:
 Valor: R$ 0.00
 ---------------------------------------------------
 
+E-TICKET 469832
+Passageiro: joao
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: ¥°{
+Valor: R$ -66094245085184.00
+---------------------------------------------------
+
+E-TICKET 537550
+Passageiro: Joao Pedro Pardinho
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: ˘C‡
+Valor: R$ 499.43
+---------------------------------------------------
+
+E-TICKET 899386
+Passageiro: Joaquim
+CPF: 19210240567
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: 
+Valor: R$ 0.00
+---------------------------------------------------
+

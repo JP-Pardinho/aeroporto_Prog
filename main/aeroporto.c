@@ -4,6 +4,13 @@
 
 int main() 
 {
+    
+    struct tm *dia_atual;
+    time_t segundos;
+    time(&segundos);
+    dia_atual = localtime(&segundos);
+    
+    
     // ALTERANDO PARA PONTEIRO PRECISAMOS ALTERAR TODAS AS FUNÇÕES
     Aeroporto *aeroportos = NULL;
     Rota *rotas = NULL;

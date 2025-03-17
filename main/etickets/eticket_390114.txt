@@ -1,0 +1,24 @@
+===================================================
+                     E-TICKET                      
+===================================================
+
+Número do E-ticket: 390114
+Código da venda: 1668498698
+
+PASSAGEIRO
+Nome: Pedro
+CPF: 12312312312
+Bagagem extra: Sim
+
+VOO
+Origem: sam
+Destino: pin
+Horário: 10:10
+Assento: �V#
+
+Valor total: R$ -4261724661445820416.00
+Forma de pagamento: �
+
+===================================================
+    Apresente este e-ticket no portão de embarque  
+===================================================

@@ -52,3 +52,120 @@ Assento:
 Valor: R$ 0.00
 ---------------------------------------------------
 
+E-TICKET 110016
+Passageiro: Pedro
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: Œ5å
+Valor: R$ 0.00
+---------------------------------------------------
+
+E-TICKET 199955
+Passageiro: å
+CPF: å
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: 
+Valor: R$ 0.00
+---------------------------------------------------
+
+E-TICKET 991426
+Passageiro: Pedro
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: 
+Valor: R$ 0.00
+---------------------------------------------------
+
+E-TICKET 408205
+Passageiro: Joaquim
+CPF: 19210240567
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: 
+Valor: R$ 0.00
+---------------------------------------------------
+
+E-TICKET 686249
+Passageiro: Pedro
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: ¯˛[
+Valor: R$ -274664319438984904605719068672.00
+---------------------------------------------------
+
+E-TICKET 999067
+Passageiro: Pedro
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: 
+Valor: R$ 0.00
+---------------------------------------------------
+
+E-TICKET 393079
+Passageiro: Pedro
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: ˇ[
+Valor: R$ -191194162369782836418381158972758425600.00
+---------------------------------------------------
+
+E-TICKET 658088
+Passageiro: Pedro
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: Zœ
+Valor: R$ -0.00
+---------------------------------------------------
+
+E-TICKET 390114
+Passageiro: Pedro
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: ‚V#
+Valor: R$ -4261724661445820416.00
+---------------------------------------------------
+
+E-TICKET 260126
+Passageiro: Pedro
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: ØÅ’
+Valor: R$ 4437354051796992.00
+---------------------------------------------------
+
+E-TICKET 764868
+Passageiro: Pedro
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: £Ï
+Valor: R$ -0.00
+---------------------------------------------------
+
+E-TICKET 947683
+Passageiro: Pedro
+CPF: 12312312312
+Voo: sam para pin
+Hor√°rio: 10:10
+Assento: 
+Valor: R$ -0.00
+---------------------------------------------------
+
+E-TICKET 324484
+Passageiro: Joao
+CPF: 00099988877
+Voo: cgh para pin
+Hor√°rio: 10:00
+Assento: 
+Valor: R$ 0.00
+---------------------------------------------------
+

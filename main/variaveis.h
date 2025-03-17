@@ -10,6 +10,7 @@
 #define COLUNAS 6
 
 // Structs
+
 typedef struct
 {
     char codigo[4];
@@ -61,6 +62,7 @@ typedef struct
     char origem[4];  // Adicionado
     char destino[4]; // Adicionado
     char horario[6];
+    char data_voo[11];
     char assento[4];
     float valor_total;
     char forma_pagamento[20];
@@ -85,11 +87,11 @@ void salvar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemen
 int carregar_arquivo(const char *nome_arquivo, void **dados, size_t tamanho_elemento, int *tamanho_maximo);
 float calcular_preco(Rota rota, int dias_antecedencia, char tipo_dia, float percentual_ocupacao, int dias_retorno);
 void gerar_eticket(Venda venda, Passageiro passageiro, Rota rota);
-void cadastrar_passageiro(Passageiro *passageiros, int *total);
+int cadastrar_passageiro(Passageiro *passageiros, int *total);
 void pesquisar_alterar_passageiro(Passageiro *passageiros, int total);
 void cadastrar_funcionario(Funcionario *funcionarios, int *total);
 void pesquisar_alterar_funcionario(Funcionario *funcionarios, int total);
 void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas);
-void escolher_assento(Rota *rota);
+int escolher_assento(Rota *rota);
 void limpa_tela();
 #endif

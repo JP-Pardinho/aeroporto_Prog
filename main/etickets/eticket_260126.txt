@@ -1,0 +1,24 @@
+===================================================
+                     E-TICKET                      
+===================================================
+
+N√∫mero do E-ticket: 260126
+C√≥digo da venda: 1668498698
+
+PASSAGEIRO
+Nome: Pedro
+CPF: 12312312312
+Bagagem extra: Sim
+
+VOO
+Origem: sam
+Destino: pin
+Hor√°rio: 10:10
+Assento: ØÅ’
+
+Valor total: R$ 4437354051796992.00
+Forma de pagamento: ˇ
+
+===================================================
+    Apresente este e-ticket no port√£o de embarque  
+===================================================

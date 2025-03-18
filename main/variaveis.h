@@ -30,7 +30,7 @@ typedef struct
     int poltronas_disponiveis;
     float distancia;
     char dias_semana[7];
-    char assentos[10][6];
+    char *assentos;
     char conexao[4];
 } Rota;
 

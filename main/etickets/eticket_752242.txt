@@ -2,23 +2,23 @@
                      E-TICKET                      
 ===================================================
 
-NÃºmero do E-ticket: 264411
-CÃ³digo da venda: 1668498698
+Numero do E-ticket: 752242
+Codigo da venda: 1
 
 PASSAGEIRO
-Nome: 
-CPF: "
-Bagagem extra: NÃ£o
+Nome: joao pedro pardinho
+CPF: 13184994708
+Bagagem extra: Nao
 
 VOO
-Origem: OAS
-Destino: OPS
-HorÃ¡rio: ü
-Assento: 
+Origem: cgh
+Destino: sdu
+Horario: 10:30
+Assento: 20
 
-Valor total: R$ 0.00
-Forma de pagamento: 
+Valor total: R$ 295.31
+Forma de pagamento:  fÿÿ
 
 ===================================================
-    Apresente este e-ticket no portÃ£o de embarque  
+    Apresente este e-ticket no portao de embarque  
 ===================================================

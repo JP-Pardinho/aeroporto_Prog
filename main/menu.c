@@ -99,42 +99,120 @@ Venda* alocaVetVenda(int tam){
     return vetVendas;
 }
 
+// Funções de Verificão
+int rota_existe(Rota *rotas, int total_rotas, const char *nome) {
+    for (int i = 0; i < total_rotas; i++) {
+        if (strcasecmp(rotas[i].nome, nome) == 0) { // Comparação insensível a maiúsculas/minúsculas
+            return 1; // Rota já existe
+        }
+    }
+    return 0; // Rota não existe
+}
+
+int aeroporto_existe(Aeroporto *aeroportos, int total_aeroportos, const char *nome) {
+    for (int i = 0; i < total_aeroportos; i++) {
+        if (strcasecmp(aeroportos[i].nome, nome) == 0) { // Comparação insensível a maiúsculas/minúsculas
+            return 1; // Aeroporto já existe
+        }
+    }
+    return 0; // Aeroporto não existe
+}
+
+int passageiro_existe(Passageiro *passageiros, int total_passageiros, const char *nome) {
+    for (int i = 0; i < total_passageiros; i++) {
+        if (strcasecmp(passageiros[i].nome, nome) == 0) { // Comparação insensível a maiúsculas/minúsculas
+            return 1; // Passageiro já existe
+        }
+    }
+    return 0; // Passageiro não existe
+}
+
+int funcionario_existe(Funcionario *funcionarios, int total_funcionarios, const char *nome) {
+    for (int i = 0; i < total_funcionarios; i++) {
+        if (strcasecmp(funcionarios[i].nome, nome) == 0) { // Comparação insensível a maiúsculas/minúsculas
+            return 1; // Funcionário já existe
+        }
+    }
+    return 0; // Funcionário não existe
+}
+
+int contem_apenas_numeros(const char *str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (!isdigit(str[i])) {
+            return 0; // Contém caracteres não numéricos
+        }
+    }
+    return 1; // Apenas números
+}
+
+int contem_apenas_letras(const char *str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (!isalpha(str[i]) && str[i] != ' ') { // Permite espaços
+            return 0; // Contém caracteres não alfabéticos
+        }
+    }
+    return 1; // Apenas letras
+}
 
 // FUNcoES DE CADASTRO / ALTERAcaO
-
-void cadastrar_aeroporto(Aeroporto *aeroportos, int *total)
-{
+void cadastrar_aeroporto(Aeroporto *aeroportos, int *total) {
     limpa_tela();
     printf("=== CADASTRO DE AEROPORTO ===\n\n");
+
+    // Validar código do aeroporto
+    char codigo[4];
     printf("Codigo (3 letras): ");
-    scanf("%s", aeroportos[*total].codigo);
+    scanf("%s", codigo);
     
-    // Validacao do codigo do aeroporto
-    if (strlen(aeroportos[*total].codigo) != 3)
-    {
+    if (strlen(codigo) != 3 || !contem_apenas_letras(codigo)) {
         printf("Erro: Codigo deve ter exatamente 3 letras!\n");
         getchar();
         printf("\nAperte enter para continuar...\n");
         getchar();
         return;
     }
-    
-    // Converter para maiusculas
-    for (int i = 0; i < 3; i++)
-    {
-        aeroportos[*total].codigo[i] = toupper(aeroportos[*total].codigo[i]);
+
+    // Converter para maiúsculas
+    for (int i = 0; i < 3; i++) {
+        codigo[i] = toupper(codigo[i]);
     }
-    
+
+    // Verificar se o código já existe
+    for (int i = 0; i < *total; i++) {
+        if (strcmp(aeroportos[i].codigo, codigo) == 0) {
+            printf("Erro: Codigo do aeroporto ja existe!\n");
+            getchar();
+            printf("\nAperte enter para continuar...\n");
+            getchar();
+            return;
+        }
+    }
+
+    strcpy(aeroportos[*total].codigo, codigo);
+
+    // Validar nome do aeroporto
+    char nome[50];
     printf("Nome: ");
-    scanf(" %[^\n]", aeroportos[*total].nome);
+    scanf(" %[^\n]", nome);
+
+    if (aeroporto_existe(aeroportos, *total, nome)) {
+        printf("Erro: Aeroporto com o mesmo nome já existe!\n");
+        getchar();
+        printf("\nAperte enter para continuar...\n");
+        getchar();
+        return;
+    }
+
+    strcpy(aeroportos[*total].nome, nome);
+
     printf("Cidade: ");
     scanf(" %[^\n]", aeroportos[*total].cidade);
+
+    // Validar estado (2 letras)
+    char estado[3];
     printf("Estado (2 letras): ");
-    scanf("%s", aeroportos[*total].estado);
-    
-    // Validacao do estado
-    if (strlen(aeroportos[*total].estado) != 2)
-    {
+    scanf("%s", estado);
+    if (strlen(estado) != 2 || !contem_apenas_letras(estado)) {
         printf("Erro: Estado deve ter exatamente 2 letras!\n");
         getchar();
         printf("\nAperte enter para continuar...\n");
@@ -142,23 +220,35 @@ void cadastrar_aeroporto(Aeroporto *aeroportos, int *total)
         return;
     }
 
-    // Converter para maiusculas
-    aeroportos[*total].estado[0] = toupper(aeroportos[*total].estado[0]);
-    aeroportos[*total].estado[1] = toupper(aeroportos[*total].estado[1]);
-    
+    // Converter para maiúsculas
+    estado[0] = toupper(estado[0]);
+    estado[1] = toupper(estado[1]);
+
+    strcpy(aeroportos[*total].estado, estado);
+
     getchar();
     printf("\nAeroporto cadastrado com sucesso!\n");
     printf("\nAperte enter para concluir esse cadastro!...\n");
     getchar();
-    
+
     (*total)++;
     salvar_arquivo("aeroportos.dat", aeroportos, sizeof(Aeroporto), *total);
 }
 
-void cadastrar_rota(Rota *rotas, int *total) {
+
+void cadastrar_rota(Rota *rotas, int *total, Aeroporto *aeroportos, int total_aeroportos) {
     limpa_tela();
     printf("=== CADASTRO DE ROTA ===\n\n");
 
+    // Verificar se há aeroportos cadastrados
+    if (total_aeroportos == 0) {
+        printf("Erro: Nenhum aeroporto cadastrado. Cadastre aeroportos antes de criar rotas.\n");
+        getchar();
+        printf("\nAperte enter para continuar...\n");
+        getchar();
+        return;
+    }
+  
     // Validar código da rota (deve ser único)
     int codigo;
     printf("Codigo da rota: ");
@@ -174,39 +264,108 @@ void cadastrar_rota(Rota *rotas, int *total) {
     }
     rotas[*total].codigo = codigo;
 
-    printf("Nome da rota: ");
-    scanf(" %[^\n]", rotas[*total].nome);
 
     // Validar códigos de origem e destino (3 caracteres)
     char origem[4], destino[4];
-    printf("Codigo de origem (3 letras): ");
-    scanf("%s", origem);
-    if (strlen(origem) != 3) {
-        printf("Erro: Codigo de origem deve ter 3 letras!\n");
+    // Validar nome da rota (deve ser único)
+    char nome[100];
+    printf("Nome da rota: ");
+    scanf(" %[^\n]", nome);
+    if (rota_existe(rotas, *total, nome)) {
+        printf("Erro: Uma rota com o nome '%s' já existe!\n", nome);
         getchar();
         printf("\nAperte enter para continuar...\n");
         getchar();
         return;
     }
-    printf("Codigo de destino (3 letras): ");
-    scanf("%s", destino);
-    if (strlen(destino) != 3) {
-        printf("Erro: Codigo de destino deve ter 3 letras!\n");
+    strcpy(rotas[*total].nome, nome);
+
+    printf("Codigo de origem (3 letras): ");
+    scanf("%s", origem);
+    if (strlen(origem) != 3 || !contem_apenas_letras(origem)) {
+        printf("Erro: Codigo de origem deve ter exatamente 3 letras!\n");
+        getchar();
+        printf("\nAperte enter para continuar...\n");
+        getchar();
+        return;
+    }
+    // Converter para maiúsculas
+    for (int i = 0; i < 3; i++) {
+        origem[i] = toupper(origem[i]);
+    }
+    // Verificar se o aeroporto de origem existe
+    int origem_encontrada = 0;
+    for (int i = 0; i < total_aeroportos; i++) {
+        if (strcmp(aeroportos[i].codigo, origem) == 0) {
+            origem_encontrada = 1;
+            break;
+        }
+    }
+    if (!origem_encontrada) {
+        printf("Erro: Aeroporto de origem '%s' nao encontrado!\n", origem);
         getchar();
         printf("\nAperte enter para continuar...\n");
         getchar();
         return;
     }
     strcpy(rotas[*total].origem, origem);
+
+    // Validar código de destino (deve ser um aeroporto existente)
+    char destino[4];
+    printf("Codigo de destino (3 letras): ");
+    scanf("%s", destino);
+    if (strlen(destino) != 3 || !contem_apenas_letras(destino)) {
+        printf("Erro: Codigo de destino deve ter exatamente 3 letras!\n");
+        getchar();
+        printf("\nAperte enter para continuar...\n");
+        getchar();
+        return;
+    }
+    // Converter para maiúsculas
+    for (int i = 0; i < 3; i++) {
+        destino[i] = toupper(destino[i]);
+    }
+    // Verificar se o aeroporto de destino existe
+    int destino_encontrado = 0;
+    for (int i = 0; i < total_aeroportos; i++) {
+        if (strcmp(aeroportos[i].codigo, destino) == 0) {
+            destino_encontrado = 1;
+            break;
+        }
+    }
+    if (!destino_encontrado) {
+        printf("Erro: Aeroporto de destino '%s' nao encontrado!\n", destino);
+        getchar();
+        printf("\nAperte enter para continuar...\n");
+        getchar();
+        return;
+    }
     strcpy(rotas[*total].destino, destino);
 
+
+    // Validar distância em milhas
     printf("Distancia em milhas: ");
     scanf("%f", &rotas[*total].distancia);
+    if (rotas[*total].distancia <= 0) {
+        printf("Erro: A distancia deve ser um valor positivo!\n");
+        getchar();
+        printf("\nAperte enter para continuar...\n");
+        getchar();
+        return;
+    }
 
-    // Definir número total de poltronas
+    // Validar número total de poltronas
     printf("Numero total de poltronas: ");
     scanf("%d", &rotas[*total].poltronas_total);
+    if (rotas[*total].poltronas_total <= 0) {
+        printf("Erro: O numero de poltronas deve ser positivo!\n");
+        getchar();
+        printf("\nAperte enter para continuar...\n");
+        getchar();
+        return;
+    }
     rotas[*total].poltronas_disponiveis = rotas[*total].poltronas_total;
+
 
     // Alocar vetor de assentos dinamicamente
     rotas[*total].assentos = (char *)malloc(rotas[*total].poltronas_total * sizeof(char));
@@ -225,9 +384,16 @@ void cadastrar_rota(Rota *rotas, int *total) {
 
     // Cadastrar horários
     int num_horarios;
-    printf("Quantidade de horarios para esta rota: ");
+    printf("Quantidade de horarios para esta rota (maximo 10): ");
     scanf("%d", &num_horarios);
-    for (int i = 0; i < num_horarios && i < 10; i++) {
+    if (num_horarios < 1 || num_horarios > 10) {
+        printf("Erro: O numero de horarios deve estar entre 1 e 10!\n");
+        getchar();
+        printf("\nAperte enter para continuar...\n");
+        getchar();
+        return;
+    }
+    for (int i = 0; i < num_horarios; i++) {
         char horario[6];
         printf("Horario %d (formato HH:MM): ", i + 1);
         scanf("%s", horario);
@@ -252,8 +418,23 @@ void cadastrar_rota(Rota *rotas, int *total) {
     if (tem_conexao == 'S' || tem_conexao == 's') {
         printf("Codigo do aeroporto de conexao (3 letras): ");
         scanf("%s", rotas[*total].conexao);
-        if (strlen(rotas[*total].conexao) != 3) {
+        if (strlen(rotas[*total].conexao) != 3 || !contem_apenas_letras(rotas[*total].conexao)) {
             printf("Erro: Codigo de conexao deve ter 3 letras!\n");
+            getchar();
+            printf("\nAperte enter para continuar...\n");
+            getchar();
+            return;
+        }
+        // Verificar se o aeroporto de conexão existe
+        int conexao_encontrada = 0;
+        for (int i = 0; i < total_aeroportos; i++) {
+            if (strcmp(aeroportos[i].codigo, rotas[*total].conexao) == 0) {
+                conexao_encontrada = 1;
+                break;
+            }
+        }
+        if (!conexao_encontrada) {
+            printf("Erro: Aeroporto de conexao '%s' nao encontrado!\n", rotas[*total].conexao);
             getchar();
             printf("\nAperte enter para continuar...\n");
             getchar();
@@ -262,6 +443,9 @@ void cadastrar_rota(Rota *rotas, int *total) {
     } else {
         strcpy(rotas[*total].conexao, ""); // Sem conexão
     }
+
+
+    // Salvar a rota no arquivo
 
     (*total)++;
     salvar_arquivo("rotas.dat", rotas, sizeof(Rota), *total);
@@ -274,14 +458,29 @@ void cadastrar_rota(Rota *rotas, int *total) {
 }
 
 int cadastrar_passageiro(Passageiro *passageiros, int *total) {
-
     limpa_tela();
     printf("=== CADASTRO DE PASSAGEIRO FIDELIZADO ===\n\n");
     
-    passageiros[*total].codigo = *total + 1; // Codigo sequencial
+    passageiros[*total].codigo = *total + 1; // Código sequencial
 
+    // Validar nome do passageiro
+    char nome[100];
     printf("Nome: ");
-    scanf(" %[^\n]", passageiros[*total].nome);
+    scanf(" %[^\n]", nome);
+
+    // Verificar se o nome já existe (comparação insensível a maiúsculas/minúsculas)
+    for (int i = 0; i < *total; i++) {
+        if (strcasecmp(passageiros[i].nome, nome) == 0) {
+            printf("Erro: Passageiro com o mesmo nome já existe!\n");
+            getchar();
+            printf("\nAperte enter para continuar...\n");
+            getchar();
+            return 0; // Retorna 0 indicando que o cadastro falhou
+        }
+    }
+
+    // Se o nome não existe, prosseguir com o cadastro
+    strcpy(passageiros[*total].nome, nome);
     
     printf("RG: ");
     scanf("%s", passageiros[*total].RG);
@@ -289,25 +488,25 @@ int cadastrar_passageiro(Passageiro *passageiros, int *total) {
     printf("CPF (apenas numeros): ");
     scanf("%s", passageiros[*total].CPF);
     
-    // Validacao basica de CPF
+    // Validação básica de CPF
     if (strlen(passageiros[*total].CPF) != 11) {
         printf("Erro: CPF deve ter 11 digitos!\n");
         getchar();
         printf("\nAperte enter para continuar...\n");
         getchar();
-        return 0; //ERRO!
+        return 0; // Retorna 0 indicando que o cadastro falhou
     }
     
     printf("Data de nascimento (DD/MM/AAAA): ");
     scanf("%s", passageiros[*total].data_nasc);
     
-    // Validacao basica da data de nascimento
+    // Validação básica da data de nascimento
     if (strlen(passageiros[*total].data_nasc) != 10 || passageiros[*total].data_nasc[2] != '/' || passageiros[*total].data_nasc[5] != '/') {
         printf("Erro: Data de nascimento deve estar no formato DD/MM/AAAA!\n");
         getchar();
         printf("\nAperte enter para continuar...\n");
         getchar();
-        return 0; //ERRO!
+        return 0; // Retorna 0 indicando que o cadastro falhou
     }
     
     printf("Telefone: ");
@@ -331,7 +530,7 @@ int cadastrar_passageiro(Passageiro *passageiros, int *total) {
     getchar();
     printf("\nAperte enter para concluir esse cadastro!...\n");
     getchar();
-    return 1;
+    return 1; // Retorna 1 indicando que o cadastro foi bem-sucedido
 }
 
 void pesquisar_alterar_passageiro(Passageiro *passageiros, int total)
@@ -698,9 +897,102 @@ int dias_ate_viagem(int dia, int mes, int ano) {
     return diferenca > 0 ? diferenca : 0;
 }
 
-void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas) {
+void realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int total_funcionarios) {
+    // Variáveis para cálculo do preço
+    int dias_antecedencia;
+    char tipo_dia;
+    float percentual_ocupacao;
+    int dias_retorno;
+
+    // Solicitar informações para cálculo do preço
+    printf("\n=== ETAPA 4: REALIZAR PAGAMENTO ===\n\n");
+
+    // Solicitar data da viagem
+    int dia, mes, ano;
+    printf("Digite a data da viagem (DD MM AAAA): ");
+    scanf("%d %d %d", &dia, &mes, &ano);
+
+    // Calcular dias de antecedência
+    dias_antecedencia = dias_ate_viagem(dia, mes, ano);
+
+    // Solicitar tipo de dia (Feriado, Final de Semana, Dia Útil)
+    printf("Tipo de dia (F = Feriado, S = Final de Semana, U = Dia Útil): ");
+    scanf(" %c", &tipo_dia);
+
+    // Calcular percentual de ocupação
+    percentual_ocupacao = ((float)(rota->poltronas_total - rota->poltronas_disponiveis) / rota->poltronas_total) * 100;
+
+    // Solicitar dias de retorno (se houver)
+    printf("Quantos dias até o retorno (0 se for só ida)? ");
+    scanf("%d", &dias_retorno);
+
+    // Calcular o preço da passagem
+    float valor_passagem = calcular_preco(*rota, dias_antecedencia, tipo_dia, percentual_ocupacao, dias_retorno);
+    printf("\nValor da passagem: R$ %.2f\n", valor_passagem);
+
+    // Solicitar forma de pagamento
+    printf("\nEscolha a forma de pagamento:\n");
+    printf("[1] Cartão de Crédito\n");
+    printf("[2] Cartão de Débito\n");
+    printf("[3] Dinheiro\n");
+    int forma_pagamento;
+    scanf("%d", &forma_pagamento);
+
+    // Validar forma de pagamento
+    if (forma_pagamento < 1 || forma_pagamento > 3) {
+        printf("Forma de pagamento inválida!\n");
+        getchar();
+        printf("\nAperte enter para continuar...\n");
+        getchar();
+        return;
+    }
+
+    // Se for pagamento em dinheiro, validar matrícula do funcionário
+    if (forma_pagamento == 3) {
+        int matricula_funcionario;
+        printf("Digite a matrícula do funcionário: ");
+        scanf("%d", &matricula_funcionario);
+
+        // Validar matrícula do funcionário
+        int funcionario_valido = 0;
+        for (int i = 0; i < total_funcionarios; i++) {
+            if (funcionarios[i].matricula == matricula_funcionario) {
+                funcionario_valido = 1;
+                break;
+            }
+        }
+
+        if (!funcionario_valido) {
+            printf("Matrícula do funcionário inválida!\n");
+            getchar();
+            printf("\nAperte enter para continuar...\n");
+            getchar();
+            return;
+        }
+    }
+
+    // Atualizar os dados da venda
+    venda->valor_total = valor_passagem;
+    if (forma_pagamento == 1) {
+        strcpy(venda->forma_pagamento, "Cartão de Crédito");
+    } else if (forma_pagamento == 2) {
+        strcpy(venda->forma_pagamento, "Cartão de Débito");
+    } else {
+        strcpy(venda->forma_pagamento, "Dinheiro");
+    }
+
+    printf("\nPagamento realizado com sucesso!\n");
+    printf("Forma de pagamento: %s\n", venda->forma_pagamento);
+    printf("Valor total: R$ %.2f\n", venda->valor_total);
+
+    getchar();
+    printf("\nAperte enter para continuar...\n");
+    getchar();
+}
+
+void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios) {
     Venda nova_venda;
-    int ver_passageiro;
+    int ver_assento, ver_passageiro;
     int rota_selecionada = -1;
     Passageiro passageiro_atual;
     char passageiro_fidelizado;
@@ -771,6 +1063,7 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
     scanf("%d", &horario_escolhido);
     strcpy(nova_venda.horario, rotas[rota_selecionada].horarios[horario_escolhido - 1]);
 
+
     // ETAPA 3: Selecionar assento (sem marcar como ocupado ainda)
     printf("\nEscolha o assento:\n");
 
@@ -780,9 +1073,11 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
             printf("\033[34m[%d]\033[0m ", i + 1); // Azul para livre
         } else {
             printf("\033[31m[%d]\033[0m ", i + 1); // Vermelho para ocupado
+
         }
     }
     printf("\n");
+
 
     // Escolher assento
     printf("\nDigite o número do assento desejado (1 a %d): ", rotas[rota_selecionada].poltronas_total);
@@ -828,6 +1123,21 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
             return;
         }
         passageiro_atual = passageiros[encontrado];
+
+        // ETAPA 4: Realizar pagamento
+        realizar_pagamento(&nova_venda, &rotas[rota_selecionada], funcionarios, total_funcionarios);
+
+        // ETAPA 5: Gerar e-ticket
+        gerar_eticket(nova_venda, passageiro_atual, rotas[rota_selecionada]);
+
+        // Salvar venda
+        vendas[*total_vendas] = nova_venda;
+        (*total_vendas)++;
+        salvar_arquivo("vendas.dat", vendas, sizeof(Venda), *total_vendas);
+        salvar_arquivo("rotas.dat", rotas, sizeof(Rota), total_rotas);
+
+        printf("\nVenda realizada com sucesso!\n");
+
     } else {
         // Cadastrar novo passageiro
         ver_passageiro = cadastrar_passageiro(passageiros, &total_passageiros);
@@ -873,6 +1183,7 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
         printf("\nCompra cancelada. O assento permanece disponível.\n");
     }
 
+
     getchar();
     printf("\nAperte enter para continuar...\n");
     getchar();
@@ -912,8 +1223,8 @@ void menu_configuracoes(Aeroporto *aeroportos, int *total_aeroportos, Rota *rota
             cadastrar_aeroporto(aeroportos, total_aeroportos);
             break;
             case 5:
-            cadastrar_rota(rotas, total_rotas);
-            break;
+                cadastrar_rota(rotas, total_rotas, aeroportos, total_aeroportos);
+                break;
             case 6:
             cadastrar_passageiro(passageiros, total_passageiros);
             break;
@@ -937,7 +1248,7 @@ void menu_configuracoes(Aeroporto *aeroportos, int *total_aeroportos, Rota *rota
     } while (opcao != 10);
 }
 
-void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas)
+void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios)
 {
     int opcao;
     
@@ -953,7 +1264,7 @@ void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int tota
         switch (opcao)
         {
         case 11:
-            realizar_venda(rotas, total_rotas, passageiros, total_passageiros, vendas, total_vendas);
+            realizar_venda(rotas, total_rotas, passageiros, total_passageiros, vendas, total_vendas, funcionarios, total_funcionarios);
             break;
         case 12:
         break;

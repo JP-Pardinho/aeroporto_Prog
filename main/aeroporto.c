@@ -53,7 +53,7 @@ int main()
             menu_configuracoes(aeroportos, &total_aeroportos, rotas, &total_rotas, passageiros, &total_passageiros, funcionarios, &total_funcionarios);
             break;
         case 2:
-            menu_vendas(rotas, total_rotas, passageiros, total_passageiros, vendas, &total_vendas);
+            menu_vendas(rotas, total_rotas, passageiros, total_passageiros, vendas, &total_vendas, funcionarios, total_funcionarios);
             break;
         case 3:
             printf("Saindo...\n");

@@ -80,8 +80,7 @@ Venda* alocaVetVenda(int tam);
 // Protótipos de funções
 void exibir_menu_principal();
 void menu_configuracoes(Aeroporto *aeroportos, int *total_aeroportos, Rota *rotas, int *total_rotas, Passageiro *passageiros, int *total_passageiros, Funcionario *funcionarios, int *total_funcionarios);
-void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas);
-void cadastrar_aeroporto(Aeroporto *aeroportos, int *total);
+void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios);
 void cadastrar_rota(Rota *rotas, int *total);
 void salvar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemento, int total);
 int carregar_arquivo(const char *nome_arquivo, void **dados, size_t tamanho_elemento, int *tamanho_maximo);

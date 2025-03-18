@@ -464,6 +464,7 @@ int cadastrar_passageiro(Passageiro *passageiros, int *total) {
 
     // Validar nome do passageiro
     char nome[100];
+    char CPF[12];
     printf("Nome: ");
     scanf(" %[^\n]", nome);
 
@@ -485,7 +486,17 @@ int cadastrar_passageiro(Passageiro *passageiros, int *total) {
     scanf("%s", passageiros[*total].RG);
     
     printf("CPF (apenas numeros): ");
-    scanf("%s", passageiros[*total].CPF);
+    scanf("%s", CPF);
+    for(int i = 0; i < *total; i++){
+        if(strcasecmp(passageiros[i].CPF, CPF) == 0){
+            printf("Erro: Passageiro com esse CPF ja existe!\n");
+            getchar();
+            printf("\nAperter enter para continuar...\n");
+            getchar();
+            return 0;
+        }
+    }
+    strcpy(passageiros[*total].CPF, CPF);
     
     // Validação básica de CPF
     if (strlen(passageiros[*total].CPF) != 11) {
@@ -895,10 +906,46 @@ int dias_ate_viagem(int dia, int mes, int ano) {
     return diferenca > 0 ? diferenca : 0;
 }
 
-void realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int total_funcionarios) {
+int data_valida(int dia, int mes, int ano) {
+    // Verificar se o mês está entre 1 e 12
+    if (mes < 1 || mes > 12) {
+        return 0;
+    }
+
+    int dias_no_mes;
+    switch (mes) {
+        case 2: // Fevereiro
+            if ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0)) {
+                dias_no_mes = 29;
+            } else {
+                dias_no_mes = 28;
+            }
+            break;
+        case 4: case 6: case 9: case 11: 
+            dias_no_mes = 30;
+            break;
+        default: 
+            dias_no_mes = 31;
+            break;
+    }
+
+    if (dia < 1 || dia > dias_no_mes) {
+        return 0;
+    }
+
+    if (ano < 2025) {
+        return 0;
+    }
+
+    return 1;
+}
+
+int realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int total_funcionarios) {
     // Variáveis para cálculo do preço
     int dias_antecedencia;
     char tipo_dia;
+    char data[11];
+    int dia, mes, ano;
     float percentual_ocupacao;
     int dias_retorno;
 
@@ -906,10 +953,24 @@ void realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int
     printf("\n=== ETAPA 4: REALIZAR PAGAMENTO ===\n\n");
 
     // Solicitar data da viagem
-    int dia, mes, ano;
-    printf("Digite a data da viagem (DD MM AAAA): ");
-    scanf("%d %d %d", &dia, &mes, &ano);
+ 
+    while (1) {
+        printf("Digite a data da viagem (DD/MM/AAAA): ");
+        scanf("%10s", data); 
 
+        if (sscanf(data, "%d/%d/%d", &dia, &mes, &ano) == 3) {
+            if (data_valida(dia, mes, ano)) {
+                break;
+            } else {
+                printf("Data inválida! Tente novamente.\n");
+                getchar();
+                return 0;
+            }
+        } else {
+            printf("Formato inválido! Use o formato DD/MM/AAAA.\n");
+        }
+    }
+    
     // Calcular dias de antecedência
     dias_antecedencia = dias_ate_viagem(dia, mes, ano);
 
@@ -942,7 +1003,7 @@ void realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int
         getchar();
         printf("\nAperte enter para continuar...\n");
         getchar();
-        return;
+        return 0;
     }
 
     // Se for pagamento em dinheiro, validar matrícula do funcionário
@@ -956,7 +1017,7 @@ void realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int
         for (int i = 0; i < total_funcionarios; i++) {
             if (funcionarios[i].matricula == matricula_funcionario) {
                 funcionario_valido = 1;
-                return;
+                return 0;
             }
         }
 
@@ -965,7 +1026,7 @@ void realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int
             getchar();
             printf("\nAperte enter para continuar...\n");
             getchar();
-            return;
+            return 0;
         }
     }
 
@@ -986,9 +1047,10 @@ void realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int
     getchar();
     printf("\nAperte enter para continuar...\n");
     getchar();
+    return 1;
 }
 
-void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios) {
+void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int *total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios) {
     Venda nova_venda;
     int ver_passageiro;
     int rota_selecionada = -1;
@@ -1104,7 +1166,7 @@ void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int 
         char cpf[12];
         scanf("%s", cpf);
         int encontrado = -1;
-        for (int i = 0; i < total_passageiros; i++) {
+        for (int i = 0; i < *total_passageiros; i++) {
             if (strcmp(passageiros[i].CPF, cpf) == 0) {
                 encontrado = i;
                 break;
@@ -1120,10 +1182,10 @@ void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int 
         passageiro_atual = passageiros[encontrado];
     } else {
         // Cadastrar novo passageiro
-        ver_passageiro = cadastrar_passageiro(passageiros, &total_passageiros);
-
+        ver_passageiro = cadastrar_passageiro(passageiros, total_passageiros);
+        
         if (ver_passageiro) {
-            passageiro_atual = passageiros[total_passageiros - 1];
+            passageiro_atual = passageiros[*total_passageiros - 1];
         } else {
             return;
         }
@@ -1157,9 +1219,12 @@ void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int 
         salvar_arquivo("vendas.dat", vendas, sizeof(Venda), *total_vendas);
         salvar_arquivo("rotas.dat", rotas, sizeof(Rota), *total_rotas);
 
-        realizar_pagamento(&nova_venda, &rotas[rota_selecionada], funcionarios, total_funcionarios);
-        gerar_eticket(nova_venda, passageiro_atual, rotas[rota_selecionada]);
-        printf("\nVenda realizada com sucesso!\n");
+        if (realizar_pagamento(&nova_venda, &rotas[rota_selecionada], funcionarios, total_funcionarios)){
+            gerar_eticket(nova_venda, passageiro_atual, rotas[rota_selecionada]);
+            printf("\nVenda realizada com sucesso!\n");
+        } else {
+            return;
+        }
     } else {
         printf("\nCompra cancelada. O assento permanece disponível.\n");
     }
@@ -1228,7 +1293,7 @@ void menu_configuracoes(Aeroporto *aeroportos, int *total_aeroportos, Rota *rota
     } while (opcao != 10);
 }
 
-void menu_vendas(Rota *rotas, int *total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios) {
+void menu_vendas(Rota *rotas, int *total_rotas, Passageiro *passageiros, int *total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios) {
     int opcao;
     
     do {

@@ -1,0 +1,24 @@
+===================================================
+                     E-TICKET                      
+===================================================
+
+Numero do E-ticket: 948517
+Codigo da venda: 2
+
+PASSAGEIRO
+Nome: Igor
+CPF: 15858272746
+Bagagem extra: Nao
+
+VOO
+Origem: SAM
+Destino: MON
+Horario: 10:00
+Assento: 2
+
+Valor total: R$ 145.94
+Forma de pagamento: Cartão de Débito
+
+===================================================
+    Apresente este e-ticket no portao de embarque  
+===================================================

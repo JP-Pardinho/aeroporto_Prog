@@ -1,0 +1,24 @@
+===================================================
+                     E-TICKET                      
+===================================================
+
+Numero do E-ticket: 391501
+Codigo da venda: 1
+
+PASSAGEIRO
+Nome: joao 
+CPF: 11122233344
+Bagagem extra: Nao
+
+VOO
+Origem: SAM
+Destino: PIN
+Horario: 10:30
+Assento: 1
+
+Valor total: R$ 195.75
+Forma de pagamento: Cartão de Crédito
+
+===================================================
+    Apresente este e-ticket no portao de embarque  
+===================================================

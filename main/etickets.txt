@@ -43,3 +43,84 @@ Assento: 2
 Valor: R$ 295.31
 ---------------------------------------------------
 
+E-TICKET 347616
+Passageiro: Joao
+CPF: 11122233344
+Voo: CGH para SDU
+Horario: 10:30
+Assento: 4
+Valor: R$ 270.93
+---------------------------------------------------
+
+E-TICKET 809690
+Passageiro: G
+CPF: 
+Voo: PIN para SAM
+Horario: 10:10
+Assento: 2
+Valor: R$ 42.67
+---------------------------------------------------
+
+E-TICKET 220613
+Passageiro: Igor 
+CPF: 15858272746
+Voo: SAM para MON
+Horario: 10:00
+Assento: 1
+Valor: R$ 427.01
+---------------------------------------------------
+
+E-TICKET 243683
+Passageiro: Igor 
+CPF: 15858272746
+Voo: SAM para MON
+Horario: 10:00
+Assento: 2
+Valor: R$ 427.01
+---------------------------------------------------
+
+E-TICKET 490883
+Passageiro: Joao
+CPF: 11122233344
+Voo: SAM para PIN
+Horario: 10:10
+Assento: 2
+Valor: R$ 85.35
+---------------------------------------------------
+
+E-TICKET 107015
+Passageiro: Igor
+CPF: 15858272746
+Voo: SAM para MON
+Horario: 10:00
+Assento: 1
+Valor: R$ 454.94
+---------------------------------------------------
+
+E-TICKET 948517
+Passageiro: Igor
+CPF: 15858272746
+Voo: SAM para MON
+Horario: 10:00
+Assento: 2
+Valor: R$ 145.94
+---------------------------------------------------
+
+E-TICKET 391501
+Passageiro: joao 
+CPF: 11122233344
+Voo: SAM para PIN
+Horario: 10:30
+Assento: 1
+Valor: R$ 195.75
+---------------------------------------------------
+
+E-TICKET 220864
+Passageiro: joao 
+CPF: 11122233344
+Voo: SAM para PIN
+Horario: 10:30
+Assento: 2
+Valor: R$ 665.12
+---------------------------------------------------
+

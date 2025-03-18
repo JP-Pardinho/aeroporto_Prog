@@ -1,0 +1,24 @@
+===================================================
+                     E-TICKET                      
+===================================================
+
+Numero do E-ticket: 220864
+Codigo da venda: 2
+
+PASSAGEIRO
+Nome: joao 
+CPF: 11122233344
+Bagagem extra: Nao
+
+VOO
+Origem: SAM
+Destino: PIN
+Horario: 10:30
+Assento: 2
+
+Valor total: R$ 665.12
+Forma de pagamento: 
+
+===================================================
+    Apresente este e-ticket no portao de embarque  
+===================================================

@@ -80,7 +80,7 @@ Venda* alocaVetVenda(int tam);
 // Protótipos de funções
 void exibir_menu_principal();
 void menu_configuracoes(Aeroporto *aeroportos, int *total_aeroportos, Rota *rotas, int *total_rotas, Passageiro *passageiros, int *total_passageiros, Funcionario *funcionarios, int *total_funcionarios);
-void menu_vendas(Rota *rotas, int *total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios);
+void menu_vendas(Rota *rotas, int *total_rotas, Passageiro *passageiros, int *total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios);
 void cadastrar_rota(Rota *rotas, int *total, Aeroporto *aeroportos, int total_aeroportos);
 void salvar_arquivo(const char *nome_arquivo, void *dados, size_t tamanho_elemento, int total);
 int carregar_arquivo(const char *nome_arquivo, void **dados, size_t tamanho_elemento, int *tamanho_maximo);
@@ -90,8 +90,9 @@ int cadastrar_passageiro(Passageiro *passageiros, int *total);
 void pesquisar_alterar_passageiro(Passageiro *passageiros, int total);
 void cadastrar_funcionario(Funcionario *funcionarios, int *total);
 void pesquisar_alterar_funcionario(Funcionario *funcionarios, int total);
-void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios);
+void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int *total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios);
 int escolher_assento(Rota *rota);
 int dias_ate_viagem(int dia, int mes, int ano); 
+int data_valida(int dia, int mes, int ano);
 void limpa_tela();
 #endif

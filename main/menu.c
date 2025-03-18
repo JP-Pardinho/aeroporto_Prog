@@ -766,9 +766,102 @@ int escolher_assento(Rota *rota) {
     return 1;
 }
 
-void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas) {
+void realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int total_funcionarios) {
+    // Variáveis para cálculo do preço
+    int dias_antecedencia;
+    char tipo_dia;
+    float percentual_ocupacao;
+    int dias_retorno;
+
+    // Solicitar informações para cálculo do preço
+    printf("\n=== ETAPA 4: REALIZAR PAGAMENTO ===\n\n");
+
+    // Solicitar data da viagem
+    int dia, mes, ano;
+    printf("Digite a data da viagem (DD MM AAAA): ");
+    scanf("%d %d %d", &dia, &mes, &ano);
+
+    // Calcular dias de antecedência
+    dias_antecedencia = dias_ate_viagem(dia, mes, ano);
+
+    // Solicitar tipo de dia (Feriado, Final de Semana, Dia Útil)
+    printf("Tipo de dia (F = Feriado, S = Final de Semana, U = Dia Útil): ");
+    scanf(" %c", &tipo_dia);
+
+    // Calcular percentual de ocupação
+    percentual_ocupacao = ((float)(rota->poltronas_total - rota->poltronas_disponiveis) / rota->poltronas_total) * 100;
+
+    // Solicitar dias de retorno (se houver)
+    printf("Quantos dias até o retorno (0 se for só ida)? ");
+    scanf("%d", &dias_retorno);
+
+    // Calcular o preço da passagem
+    float valor_passagem = calcular_preco(*rota, dias_antecedencia, tipo_dia, percentual_ocupacao, dias_retorno);
+    printf("\nValor da passagem: R$ %.2f\n", valor_passagem);
+
+    // Solicitar forma de pagamento
+    printf("\nEscolha a forma de pagamento:\n");
+    printf("[1] Cartão de Crédito\n");
+    printf("[2] Cartão de Débito\n");
+    printf("[3] Dinheiro\n");
+    int forma_pagamento;
+    scanf("%d", &forma_pagamento);
+
+    // Validar forma de pagamento
+    if (forma_pagamento < 1 || forma_pagamento > 3) {
+        printf("Forma de pagamento inválida!\n");
+        getchar();
+        printf("\nAperte enter para continuar...\n");
+        getchar();
+        return;
+    }
+
+    // Se for pagamento em dinheiro, validar matrícula do funcionário
+    if (forma_pagamento == 3) {
+        int matricula_funcionario;
+        printf("Digite a matrícula do funcionário: ");
+        scanf("%d", &matricula_funcionario);
+
+        // Validar matrícula do funcionário
+        int funcionario_valido = 0;
+        for (int i = 0; i < total_funcionarios; i++) {
+            if (funcionarios[i].matricula == matricula_funcionario) {
+                funcionario_valido = 1;
+                break;
+            }
+        }
+
+        if (!funcionario_valido) {
+            printf("Matrícula do funcionário inválida!\n");
+            getchar();
+            printf("\nAperte enter para continuar...\n");
+            getchar();
+            return;
+        }
+    }
+
+    // Atualizar os dados da venda
+    venda->valor_total = valor_passagem;
+    if (forma_pagamento == 1) {
+        strcpy(venda->forma_pagamento, "Cartão de Crédito");
+    } else if (forma_pagamento == 2) {
+        strcpy(venda->forma_pagamento, "Cartão de Débito");
+    } else {
+        strcpy(venda->forma_pagamento, "Dinheiro");
+    }
+
+    printf("\nPagamento realizado com sucesso!\n");
+    printf("Forma de pagamento: %s\n", venda->forma_pagamento);
+    printf("Valor total: R$ %.2f\n", venda->valor_total);
+
+    getchar();
+    printf("\nAperte enter para continuar...\n");
+    getchar();
+}
+
+void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios) {
     Venda nova_venda;
-    int ver_assento, ver_passageiro, op;
+    int ver_assento, ver_passageiro;
     int rota_selecionada = -1;
     Passageiro passageiro_atual;
     char passageiro_fidelizado;
@@ -840,7 +933,7 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
     // ETAPA 3: Selecionar assento
     ver_assento = escolher_assento(&rotas[rota_selecionada]);
 
-    if (ver_assento){
+    if (ver_assento) {
         // ETAPA 4: Informacoes do passageiro
         printf("\nO passageiro eh fidelizado? (S/N): ");
         scanf(" %c", &passageiro_fidelizado);
@@ -867,55 +960,32 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
             // Cadastrar novo passageiro
             ver_passageiro = cadastrar_passageiro(passageiros, &total_passageiros);
 
-            if (ver_passageiro){
+            if (ver_passageiro) {
                 passageiro_atual = passageiros[total_passageiros - 1];
             } else {
                 return;
             }
         }
 
+        // ETAPA 4: Realizar pagamento
+        realizar_pagamento(&nova_venda, &rotas[rota_selecionada], funcionarios, total_funcionarios);
 
-        // calcular_preco(rotas, )
-        printf("Valor da passagem: %f\n", vendas->valor_total);
-        printf("Qual a forma de pagamento? \n");
-        printf("[1] - Cartao\n");
-        printf("[2] - Dinheiro\n");
-        scanf("%d", &op);
-        switch (op)
-        {
-        case 1:
-            printf("Forma escolhida Cartao\n");
-            break;
-        
-        case 2:
-            printf("Forma escolhida dinheiro\n");
-            printf("coisas do funcionario!\n");
-            break;
-        
-        default:
-            printf("Opcao invalida!\n");
-            break;
-        }
-        
+        // ETAPA 5: Gerar e-ticket
+        gerar_eticket(nova_venda, passageiro_atual, rotas[rota_selecionada]);
+
+        // Salvar venda
+        vendas[*total_vendas] = nova_venda;
+        (*total_vendas)++;
+        salvar_arquivo("vendas.dat", vendas, sizeof(Venda), *total_vendas);
+        salvar_arquivo("rotas.dat", rotas, sizeof(Rota), total_rotas);
+
+        printf("\nVenda realizada com sucesso!\n");
     } else {
         return;
     }
-    
-    // ETAPA 5: Confirmacao e pagamento
-    // Implementar logica para confirmacao e pagamento
-    
-    
-    // Salvar venda
-    vendas[*total_vendas] = nova_venda;
-    (*total_vendas)++;
-    salvar_arquivo("vendas.dat", vendas, sizeof(Venda), *total_vendas);
-    salvar_arquivo("rotas.dat", rotas, sizeof(Rota), total_rotas);
-
-    printf("\nVenda realizada com sucesso!\n");
 
     printf("Aperte enter para concluir essa etapa!...\n");
     getchar();
-    gerar_eticket(nova_venda, passageiro_atual, rotas[rota_selecionada]);
     getchar();
 }
 
@@ -979,7 +1049,7 @@ void menu_configuracoes(Aeroporto *aeroportos, int *total_aeroportos, Rota *rota
     } while (opcao != 10);
 }
 
-void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas)
+void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios)
 {
     int opcao;
 
@@ -995,7 +1065,7 @@ void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int tota
         switch (opcao)
         {
         case 11:
-            realizar_venda(rotas, total_rotas, passageiros, total_passageiros, vendas, total_vendas);
+            realizar_venda(rotas, total_rotas, passageiros, total_passageiros, vendas, total_vendas, funcionarios, total_funcionarios);
             break;
         case 12:
             break;

@@ -91,7 +91,6 @@ void pesquisar_alterar_passageiro(Passageiro *passageiros, int total);
 void cadastrar_funcionario(Funcionario *funcionarios, int *total);
 void pesquisar_alterar_funcionario(Funcionario *funcionarios, int total);
 void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int *total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios);
-int escolher_assento(Rota *rota);
 int dias_ate_viagem(int dia, int mes, int ano); 
 int data_valida(int dia, int mes, int ano);
 void limpa_tela();

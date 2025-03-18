@@ -169,3 +169,30 @@ Assento: 2
 Valor: R$ 301.52
 ---------------------------------------------------
 
+E-TICKET 152206
+Passageiro: Joaquim
+CPF: 19184830786
+Voo: SAM para PIN
+Horario: 10:00
+Assento: 2
+Valor: R$ 78.30
+---------------------------------------------------
+
+E-TICKET 881848
+Passageiro: Joaquim
+CPF: 19184830786
+Voo: SAM para PIN
+Horario: 10:00
+Assento: 1
+Valor: R$ 78.30
+---------------------------------------------------
+
+E-TICKET 196780
+Passageiro: Joaquim
+CPF: 19184830786
+Voo: CGH para SDU
+Horario: 13:00
+Assento: 5
+Valor: R$ 86.91
+---------------------------------------------------
+

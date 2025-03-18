@@ -251,7 +251,7 @@ void cadastrar_rota(Rota *rotas, int *total, Aeroporto *aeroportos, int total_ae
   
     // Validar código da rota (deve ser único)
     int codigo;
-    printf("Codigo da rota: ");
+    printf("Codigo da rota (numero): ");
     scanf("%d", &codigo);
     for (int i = 0; i < *total; i++) {
         if (rotas[i].codigo == codigo) {
@@ -272,7 +272,7 @@ void cadastrar_rota(Rota *rotas, int *total, Aeroporto *aeroportos, int total_ae
     printf("Nome da rota: ");
     scanf(" %[^\n]", nome);
     if (rota_existe(rotas, *total, nome)) {
-        printf("Erro: Uma rota com o nome '%s' já existe!\n", nome);
+        printf("Erro: Uma rota com o nome '%s' ja existe!\n", nome);
         getchar();
         printf("\nAperte enter para continuar...\n");
         getchar();
@@ -507,7 +507,7 @@ int cadastrar_passageiro(Passageiro *passageiros, int *total) {
         return 0; // Retorna 0 indicando que o cadastro falhou
     }
     
-    printf("Data de nascimento (DD MM AAAA): ");
+    printf("Data de nascimento (DD/MM/AAAA): ");
     scanf("%s", passageiros[*total].data_nasc);
     
     // Validação básica da data de nascimento
@@ -967,7 +967,7 @@ int realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int 
         for (int i = 0; i < total_funcionarios; i++) {
             if (funcionarios[i].matricula == matricula_funcionario) {
                 funcionario_valido = 1;
-                return 0;
+                break;
             }
         }
 
@@ -1169,10 +1169,21 @@ void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int 
         salvar_arquivo("vendas.dat", vendas, sizeof(Venda), *total_vendas);
         salvar_arquivo("rotas.dat", rotas, sizeof(Rota), *total_rotas);
 
-        if (realizar_pagamento(&nova_venda, &rotas[rota_selecionada], funcionarios, total_funcionarios)){
+        if (realizar_pagamento(&nova_venda, &rotas[rota_selecionada], funcionarios, total_funcionarios)) {
+            // Marcar o assento como ocupado apenas após a confirmação
+            rotas[rota_selecionada].assentos[assento_escolhido - 1] = 'O';
+            rotas[rota_selecionada].poltronas_disponiveis--;
+        
+            // Salvar venda
+            vendas[*total_vendas] = nova_venda;
+            (*total_vendas)++;
+            salvar_arquivo("vendas.dat", vendas, sizeof(Venda), *total_vendas);
+            salvar_arquivo("rotas.dat", rotas, sizeof(Rota), *total_rotas);
+        
             gerar_eticket(nova_venda, passageiro_atual, rotas[rota_selecionada]);
             printf("\nVenda realizada com sucesso!\n");
         } else {
+            // Se o pagamento falhar, liberar o assento
             rotas[rota_selecionada].assentos[assento_escolhido - 1] = 'L';
             rotas[rota_selecionada].poltronas_disponiveis++;
             return;

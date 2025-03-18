@@ -1,0 +1,24 @@
+===================================================
+                     E-TICKET                      
+===================================================
+
+Numero do E-ticket: 881848
+Codigo da venda: 15
+
+PASSAGEIRO
+Nome: Joaquim
+CPF: 19184830786
+Bagagem extra: Nao
+
+VOO
+Origem: SAM
+Destino: PIN
+Horario: 10:00
+Assento: 1
+
+Valor total: R$ 78.30
+Forma de pagamento: Dinheiro
+
+===================================================
+    Apresente este e-ticket no portao de embarque  
+===================================================

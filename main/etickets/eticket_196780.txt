@@ -1,0 +1,24 @@
+===================================================
+                     E-TICKET                      
+===================================================
+
+Numero do E-ticket: 196780
+Codigo da venda: 16
+
+PASSAGEIRO
+Nome: Joaquim
+CPF: 19184830786
+Bagagem extra: Nao
+
+VOO
+Origem: CGH
+Destino: SDU
+Horario: 13:00
+Assento: 5
+
+Valor total: R$ 86.91
+Forma de pagamento: Dinheiro
+
+===================================================
+    Apresente este e-ticket no portao de embarque  
+===================================================

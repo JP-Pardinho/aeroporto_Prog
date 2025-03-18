@@ -311,7 +311,6 @@ void cadastrar_rota(Rota *rotas, int *total, Aeroporto *aeroportos, int total_ae
     strcpy(rotas[*total].origem, origem);
 
     // Validar código de destino (deve ser um aeroporto existente)
-    char destino[4];
     printf("Codigo de destino (3 letras): ");
     scanf("%s", destino);
     if (strlen(destino) != 3 || !contem_apenas_letras(destino)) {
@@ -879,7 +878,6 @@ int escolher_assento(Rota *rota) {
     return 1;
 }
 
-
 int dias_ate_viagem(int dia, int mes, int ano) {
     time_t t = time(NULL);
     struct tm hoje = *localtime(&t);
@@ -958,7 +956,7 @@ void realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int
         for (int i = 0; i < total_funcionarios; i++) {
             if (funcionarios[i].matricula == matricula_funcionario) {
                 funcionario_valido = 1;
-                break;
+                return;
             }
         }
 
@@ -990,9 +988,9 @@ void realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int
     getchar();
 }
 
-void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios) {
+void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios) {
     Venda nova_venda;
-    int ver_assento, ver_passageiro;
+    int ver_passageiro;
     int rota_selecionada = -1;
     Passageiro passageiro_atual;
     char passageiro_fidelizado;
@@ -1012,7 +1010,7 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
     printf("COD | NOME DA ROTA                | ORIGEM | DESTINO\n");
     printf("-----------------------------------------------------\n");
 
-    for (int i = 0; i < total_rotas; i++) {
+    for (int i = 0; i < *total_rotas; i++) {
         printf("%3d | %-25s | %-6s | %-6s\n",
                rotas[i].codigo,
                rotas[i].nome,
@@ -1027,7 +1025,7 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
     scanf("%d", &codigo_rota);
 
     // Buscar rota pelo codigo
-    for (int i = 0; i < total_rotas; i++) {
+    for (int i = 0; i < *total_rotas; i++) {
         if (rotas[i].codigo == codigo_rota) {
             rota_selecionada = i;
             break;
@@ -1063,7 +1061,6 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
     scanf("%d", &horario_escolhido);
     strcpy(nova_venda.horario, rotas[rota_selecionada].horarios[horario_escolhido - 1]);
 
-
     // ETAPA 3: Selecionar assento (sem marcar como ocupado ainda)
     printf("\nEscolha o assento:\n");
 
@@ -1073,11 +1070,9 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
             printf("\033[34m[%d]\033[0m ", i + 1); // Azul para livre
         } else {
             printf("\033[31m[%d]\033[0m ", i + 1); // Vermelho para ocupado
-
         }
     }
     printf("\n");
-
 
     // Escolher assento
     printf("\nDigite o número do assento desejado (1 a %d): ", rotas[rota_selecionada].poltronas_total);
@@ -1123,21 +1118,6 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
             return;
         }
         passageiro_atual = passageiros[encontrado];
-
-        // ETAPA 4: Realizar pagamento
-        realizar_pagamento(&nova_venda, &rotas[rota_selecionada], funcionarios, total_funcionarios);
-
-        // ETAPA 5: Gerar e-ticket
-        gerar_eticket(nova_venda, passageiro_atual, rotas[rota_selecionada]);
-
-        // Salvar venda
-        vendas[*total_vendas] = nova_venda;
-        (*total_vendas)++;
-        salvar_arquivo("vendas.dat", vendas, sizeof(Venda), *total_vendas);
-        salvar_arquivo("rotas.dat", rotas, sizeof(Rota), total_rotas);
-
-        printf("\nVenda realizada com sucesso!\n");
-
     } else {
         // Cadastrar novo passageiro
         ver_passageiro = cadastrar_passageiro(passageiros, &total_passageiros);
@@ -1175,15 +1155,15 @@ void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int t
         vendas[*total_vendas] = nova_venda;
         (*total_vendas)++;
         salvar_arquivo("vendas.dat", vendas, sizeof(Venda), *total_vendas);
-        salvar_arquivo("rotas.dat", rotas, sizeof(Rota), total_rotas);
+        salvar_arquivo("rotas.dat", rotas, sizeof(Rota), *total_rotas);
 
-        printf("\nVenda realizada com sucesso!\n");
+        realizar_pagamento(&nova_venda, &rotas[rota_selecionada], funcionarios, total_funcionarios);
         gerar_eticket(nova_venda, passageiro_atual, rotas[rota_selecionada]);
+        printf("\nVenda realizada com sucesso!\n");
     } else {
         printf("\nCompra cancelada. O assento permanece disponível.\n");
     }
-
-
+    
     getchar();
     printf("\nAperte enter para continuar...\n");
     getchar();
@@ -1220,25 +1200,25 @@ void menu_configuracoes(Aeroporto *aeroportos, int *total_aeroportos, Rota *rota
         
         switch (opcao) {
             case 4:
-            cadastrar_aeroporto(aeroportos, total_aeroportos);
-            break;
+                cadastrar_aeroporto(aeroportos, total_aeroportos);
+                break;
             case 5:
-                cadastrar_rota(rotas, total_rotas, aeroportos, total_aeroportos);
+                cadastrar_rota(rotas, total_rotas, aeroportos, *total_aeroportos);
                 break;
             case 6:
-            cadastrar_passageiro(passageiros, total_passageiros);
-            break;
+                cadastrar_passageiro(passageiros, total_passageiros);
+                break;
             case 7:
-            pesquisar_alterar_passageiro(passageiros, *total_passageiros);
-            break;
+                pesquisar_alterar_passageiro(passageiros, *total_passageiros);
+                break;
             case 8:
-            cadastrar_funcionario(funcionarios, total_funcionarios);
-            break;
+                cadastrar_funcionario(funcionarios, total_funcionarios);
+                break;
             case 9:
-            pesquisar_alterar_funcionario(funcionarios, *total_funcionarios);
-            break;
+                pesquisar_alterar_funcionario(funcionarios, *total_funcionarios);
+                break;
             case 10:
-            break;
+                break;
             default:
             printf("Opcao invalida!\n");
             getchar();
@@ -1248,12 +1228,10 @@ void menu_configuracoes(Aeroporto *aeroportos, int *total_aeroportos, Rota *rota
     } while (opcao != 10);
 }
 
-void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios)
-{
+void menu_vendas(Rota *rotas, int *total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas, Funcionario *funcionarios, int total_funcionarios) {
     int opcao;
     
-    do
-    {
+    do {
         limpa_tela();
         printf("=== MENU DE VENDAS ===\n\n");
         printf("[11] Selecionar origem e destino [Etapa 1 de 5]\n");
@@ -1261,18 +1239,17 @@ void menu_vendas(Rota *rotas, int total_rotas, Passageiro *passageiros, int tota
         printf("\nEscolha uma opcao: ");
         scanf("%d", &opcao);
         
-        switch (opcao)
-        {
-        case 11:
-            realizar_venda(rotas, total_rotas, passageiros, total_passageiros, vendas, total_vendas, funcionarios, total_funcionarios);
-            break;
-        case 12:
-        break;
-        default:
-            printf("Opcao invalida!\n");
-            getchar();
-            printf("\nAperte enter para continuar...\n");
-            getchar();
+        switch (opcao) {
+            case 11:
+                realizar_venda(rotas, total_rotas, passageiros, total_passageiros, vendas, total_vendas, funcionarios, total_funcionarios);
+                break;
+            case 12:
+                break;
+            default:
+                printf("Opcao invalida!\n");
+                getchar();
+                printf("\nAperte enter para continuar...\n");
+                getchar();
         }
     } while (opcao != 12);
 }

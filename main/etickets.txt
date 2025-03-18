@@ -16,3 +16,30 @@ Assento: 19
 Valor: R$ 295.31
 ---------------------------------------------------
 
+E-TICKET 221844
+Passageiro: Joaquim
+CPF: 11122233344
+Voo: CGH para SDU
+Horario: 09:00
+Assento: 2
+Valor: R$ 295.31
+---------------------------------------------------
+
+E-TICKET 446597
+Passageiro: Joao
+CPF: 11122233300
+Voo: CGH para SDU
+Horario: 09:00
+Assento: 18
+Valor: R$ 295.31
+---------------------------------------------------
+
+E-TICKET 833301
+Passageiro: Joao
+CPF: 11122233300
+Voo: CGH para SDU
+Horario: 09:00
+Assento: 2
+Valor: R$ 295.31
+---------------------------------------------------
+

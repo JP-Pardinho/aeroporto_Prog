@@ -1,0 +1,24 @@
+===================================================
+                     E-TICKET                      
+===================================================
+
+Numero do E-ticket: 833301
+Codigo da venda: 2
+
+PASSAGEIRO
+Nome: Joao
+CPF: 11122233300
+Bagagem extra: Sim
+
+VOO
+Origem: CGH
+Destino: SDU
+Horario: 09:00
+Assento: 2
+
+Valor total: R$ 295.31
+Forma de pagamento: 
+
+===================================================
+    Apresente este e-ticket no portao de embarque  
+===================================================

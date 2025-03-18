@@ -124,3 +124,48 @@ Assento: 2
 Valor: R$ 665.12
 ---------------------------------------------------
 
+E-TICKET 217156
+Passageiro: joao 
+CPF: 11122233344
+Voo: SAM para PIN
+Horario: ã
+Assento: -1
+Valor: R$ 96.73
+---------------------------------------------------
+
+E-TICKET 395082
+Passageiro: joao 
+CPF: 11122233344
+Voo: SAM para PIN
+Horario: ã
+Assento: -1
+Valor: R$ 354.73
+---------------------------------------------------
+
+E-TICKET 891299
+Passageiro: joao 
+CPF: 11122233344
+Voo: SAM para PIN
+Horario: ã
+Assento: -1
+Valor: R$ 130.87
+---------------------------------------------------
+
+E-TICKET 788271
+Passageiro: joao 
+CPF: 11122233344
+Voo: SAM para PIN
+Horario: 10:30
+Assento: 1
+Valor: R$ 301.52
+---------------------------------------------------
+
+E-TICKET 155505
+Passageiro: joao 
+CPF: 11122233344
+Voo: SAM para PIN
+Horario: 10:30
+Assento: 2
+Valor: R$ 301.52
+---------------------------------------------------
+

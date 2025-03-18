@@ -507,7 +507,7 @@ int cadastrar_passageiro(Passageiro *passageiros, int *total) {
         return 0; // Retorna 0 indicando que o cadastro falhou
     }
     
-    printf("Data de nascimento (DD/MM/AAAA): ");
+    printf("Data de nascimento (DD MM AAAA): ");
     scanf("%s", passageiros[*total].data_nasc);
     
     // Validação básica da data de nascimento
@@ -841,54 +841,6 @@ float calcular_preco(Rota rota, int dias_antecedencia, char tipo_dia, float perc
 }
 
 
-int escolher_assento(Rota *rota) {
-    if (rota == NULL) {
-        printf("Erro: Rota inválida!\n");
-        return 0;
-    }
-
-    if (rota->assentos == NULL || rota->poltronas_total <= 0) {
-        printf("Erro: Assentos não alocados ou número de poltronas inválido!\n");
-        return 0;
-    }
-
-    // Exibir assentos disponíveis
-    printf("Assentos disponíveis (L = Livre, O = Ocupado):\n");
-
-    for (int i = 0; i < rota->poltronas_total; i++) {
-        if (rota->assentos[i] == 'L') {
-            printf("\033[34m[%d]\033[0m ", i + 1); // Azul para livre
-        } else {
-            printf("\033[31m[%d]\033[0m ", i + 1); // Vermelho para ocupado
-        }
-    }
-    printf("\n");
-
-    // Escolher assento
-    int assento_escolhido;
-    printf("\nDigite o número do assento desejado (1 a %d): ", rota->poltronas_total);
-    scanf("%d", &assento_escolhido);
-
-    // Verificar se o número é válido (1 a poltronas_total)
-    if (assento_escolhido < 1 || assento_escolhido > rota->poltronas_total) {
-        printf("Número de assento inválido! Use números de 1 a %d.\n", rota->poltronas_total);
-        return 0;
-    }
-
-    // Verificar se o assento está livre
-    if (rota->assentos[assento_escolhido - 1] == 'O') {
-        printf("Assento já ocupado!\n");
-        return 0;
-    }
-
-    // Marcar assento como ocupado
-    rota->assentos[assento_escolhido - 1] = 'O';
-    rota->poltronas_disponiveis--;
-
-    printf("Assento escolhido com sucesso!\n");
-    return 1;
-}
-
 int dias_ate_viagem(int dia, int mes, int ano) {
     time_t t = time(NULL);
     struct tm hoje = *localtime(&t);
@@ -907,14 +859,13 @@ int dias_ate_viagem(int dia, int mes, int ano) {
 }
 
 int data_valida(int dia, int mes, int ano) {
-    // Verificar se o mês está entre 1 e 12
     if (mes < 1 || mes > 12) {
         return 0;
     }
 
     int dias_no_mes;
     switch (mes) {
-        case 2: // Fevereiro
+        case 2: 
             if ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0)) {
                 dias_no_mes = 29;
             } else {
@@ -945,7 +896,6 @@ int realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int 
     int dias_antecedencia;
     char tipo_dia;
     char data[11];
-    int dia, mes, ano;
     float percentual_ocupacao;
     int dias_retorno;
 
@@ -953,17 +903,17 @@ int realizar_pagamento(Venda *venda, Rota *rota, Funcionario *funcionarios, int 
     printf("\n=== ETAPA 4: REALIZAR PAGAMENTO ===\n\n");
 
     // Solicitar data da viagem
- 
+    int dia, mes, ano;
+    
     while (1) {
         printf("Digite a data da viagem (DD/MM/AAAA): ");
         scanf("%10s", data); 
 
         if (sscanf(data, "%d/%d/%d", &dia, &mes, &ano) == 3) {
             if (data_valida(dia, mes, ano)) {
-                break;
+                break;;
             } else {
                 printf("Data inválida! Tente novamente.\n");
-                getchar();
                 return 0;
             }
         } else {
@@ -1056,7 +1006,7 @@ void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int 
     int rota_selecionada = -1;
     Passageiro passageiro_atual;
     char passageiro_fidelizado;
-    int assento_escolhido = -1; // Índice do assento escolhido no array linear
+    int assento_escolhido = -1; 
 
     if (rotas == NULL || passageiros == NULL || vendas == NULL) {
         printf("Erro: Ponteiros invalidos!\n");
@@ -1223,8 +1173,11 @@ void realizar_venda(Rota *rotas, int *total_rotas, Passageiro *passageiros, int 
             gerar_eticket(nova_venda, passageiro_atual, rotas[rota_selecionada]);
             printf("\nVenda realizada com sucesso!\n");
         } else {
+            rotas[rota_selecionada].assentos[assento_escolhido - 1] = 'L';
+            rotas[rota_selecionada].poltronas_disponiveis++;
             return;
         }
+        
     } else {
         printf("\nCompra cancelada. O assento permanece disponível.\n");
     }

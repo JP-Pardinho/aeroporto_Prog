@@ -694,6 +694,23 @@ void gerar_eticket(Venda venda, Passageiro passageiro, Rota rota)
     printf("Arquivo salvo em: %s\n", nome_arquivo);
 }
 
+int dias_ate_viagem(int dia, int mes, int ano) {
+    time_t t = time(NULL);
+    struct tm hoje = *localtime(&t);
+
+    struct tm viagem = {0};
+    viagem.tm_mday = dia;
+    viagem.tm_mon = mes - 1;
+    viagem.tm_year = ano - 1900;
+
+    time_t t_hoje = mktime(&hoje);
+    time_t t_viagem = mktime(&viagem);
+
+    int diferenca = (t_viagem - t_hoje) / (60 * 60 * 24);
+
+    return diferenca > 0 ? diferenca : 0;
+}
+
 int escolher_assento(Rota *rota) {
     limpa_tela();
 

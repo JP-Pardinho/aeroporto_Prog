@@ -93,5 +93,6 @@ void cadastrar_funcionario(Funcionario *funcionarios, int *total);
 void pesquisar_alterar_funcionario(Funcionario *funcionarios, int total);
 void realizar_venda(Rota *rotas, int total_rotas, Passageiro *passageiros, int total_passageiros, Venda *vendas, int *total_vendas);
 int escolher_assento(Rota *rota);
+int dias_ate_viagem(int dia, int mes, int ano); 
 void limpa_tela();
 #endif
